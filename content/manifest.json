@@ -1,0 +1,63 @@
+{
+  "title": "Quick Start Guide for Project Teams Adopting GenAI Solutions",
+  "subtitle": "Draft — a practical guide for EPAM teams delivering GenAI solutions",
+  "version": "0.1",
+  "sections": [
+    {
+      "id": "problem-statement",
+      "number": "1",
+      "title": "Problem statement",
+      "file": "sections/01-problem-statement.md"
+    },
+    {
+      "id": "document-purpose-and-scope",
+      "number": "2",
+      "title": "Document purpose and scope",
+      "file": "sections/02-document-purpose-and-scope.md"
+    },
+    {
+      "id": "key-principles",
+      "number": "3",
+      "title": "Key principles",
+      "file": "sections/03-key-principles.md",
+      "children": [
+        {
+          "id": "stakeholder-expectations",
+          "number": "3.1",
+          "title": "Set realistic stakeholder expectations",
+          "file": "sections/03-01-stakeholder-expectations.md"
+        },
+        {
+          "id": "context-engineering",
+          "number": "3.2",
+          "title": "Mastering Context Engineering",
+          "file": "sections/03-02-context-engineering.md"
+        },
+        {
+          "id": "data-products",
+          "number": "3.3",
+          "title": "Garbage in, garbage out: data products matter",
+          "file": "sections/03-03-data-products.md"
+        },
+        {
+          "id": "measurement",
+          "number": "3.4",
+          "title": "You can't improve what you don't measure",
+          "file": "sections/03-04-measurement.md"
+        },
+        {
+          "id": "roi",
+          "number": "3.5",
+          "title": "Use ROI (not raw spend) to discuss costs",
+          "file": "sections/03-05-roi.md"
+        },
+        {
+          "id": "start-small",
+          "number": "3.6",
+          "title": "Start small and increase complexity gradually",
+          "file": "sections/03-06-start-small.md"
+        }
+      ]
+    }
+  ]
+}
