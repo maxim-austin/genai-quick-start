@@ -1,5 +1,3 @@
-# 3.6 Start small and increase complexity gradually
-
 Agentic AI is still an emerging and complex domain. Starting with a sophisticated design – such as a multi-agent application that retrieves structured and unstructured data from multiple sources using low-level orchestration frameworks (e.g., LangGraph) – significantly increases risk: more moving parts, more failure modes, harder debugging, and higher cost/latency. Many teams underestimate how much work is required to make these systems reliable, explainable, and acceptable to business users.
 
 ## Recommendations

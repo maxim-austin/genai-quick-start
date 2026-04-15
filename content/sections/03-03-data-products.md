@@ -1,5 +1,3 @@
-# 3.3 Garbage in, garbage out: data products matter even more in the GenAI era
-
 GenAI applications are only as good as the data they use. When data quality is poor – missing values, incorrect records, weak definitions, or outdated data – the AI will generate incorrect insights and answers. In practice, a Talk-to-your-Data GenAI app cannot work reliably across "any random dataset". It may work as an exception only for trivial or very well-structured datasets. For enterprise use cases, curated data products are the prerequisite for trustworthy GenAI outcomes.
 
 ## Recommendations

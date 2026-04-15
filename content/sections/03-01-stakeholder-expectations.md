@@ -1,5 +1,3 @@
-# 3.1 Set realistic stakeholder expectations
-
 In GenAI projects, users typically range from skeptics to over-enthusiasts – some expect "magic" from AI agents, while others dismiss it as "autocomplete on steroids" that constantly hallucinates. To build trust and drive adoption, teams must clearly communicate the solution's capabilities, limitations, and intended usage.
 
 ## Recommendations

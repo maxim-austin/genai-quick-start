@@ -4,25 +4,25 @@
   "eyebrow": "Delivery Playbook // Data & Analytics",
   "version": "0.1",
   "status": "Draft",
-  "sections": [
-    {
-      "id": "problem-statement",
-      "number": "1",
-      "title": "Problem statement",
-      "file": "sections/01-problem-statement.md",
-      "description": "Common challenges EPAM teams face when moving GenAI solutions from POC to MVP — from accuracy and reliability to performance and cost."
-    },
-    {
-      "id": "document-purpose-and-scope",
-      "number": "2",
-      "title": "Document purpose and scope",
-      "file": "sections/02-document-purpose-and-scope.md",
-      "description": "What this guide covers, who it is written for, and what intentionally falls outside its scope."
-    },
+  "home": {
+    "blocks": [
+      {
+        "id": "problem-statement",
+        "title": "Problem Statement",
+        "file": "sections/01-problem-statement.md"
+      },
+      {
+        "id": "guide-purpose-and-scope",
+        "title": "Guide Purpose and Scope",
+        "file": "sections/02-guide-purpose-and-scope.md"
+      }
+    ]
+  },
+  "curriculum": [
     {
       "id": "key-principles",
       "number": "3",
-      "title": "Key principles",
+      "title": "Key Principles",
       "file": "sections/03-key-principles.md",
       "description": "Six technology-agnostic principles covering expectation management, context engineering, data products, measurement, ROI framing, and incremental delivery.",
       "children": [

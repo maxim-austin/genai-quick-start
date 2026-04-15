@@ -1,5 +1,3 @@
-# 3. Key principles
-
 The sections below cover the core principles that EPAM project teams should follow when delivering GenAI solutions. Each principle addresses a common pitfall and provides actionable recommendations.
 
 - **3.1** [Set realistic stakeholder expectations](#stakeholder-expectations)

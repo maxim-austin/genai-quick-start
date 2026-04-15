@@ -1,5 +1,3 @@
-# 3.4 You can't improve what you don't measure
-
 You can't systematically improve AI-generated insight quality without measurement. To increase accuracy and trust over time, GenAI solutions must combine automated evaluation with real user feedback and use both to drive iterative improvements.
 
 ## Recommendations (minimum required)

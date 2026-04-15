@@ -1,10 +1,13 @@
 /* ==========================================================================
    GenAI Quick Start — client app
-   Two-route SPA:
-     #/                  → home (hero + card grid)
-     #<section-id>       → section reader view
 
-   Content is driven by content/manifest.json and individual Markdown files.
+   Routing:
+     #/                      → home (hero + inlined Problem Statement and
+                                Guide Purpose and Scope blocks)
+     #<curriculum-section>   → reader view with left sidebar (Key Principles
+                                tree) + single-column article
+     #problem-statement      → home, smooth-scroll to that block
+     #guide-purpose-and-scope → home, smooth-scroll to that block
    ========================================================================== */
 
 (() => {
@@ -12,10 +15,10 @@
   const versionEl = document.getElementById('doc-version');
 
   let manifest = null;
-  /** Flattened list of navigable sections, in reading order. */
-  let flatSections = [];
-  /** Top-level sections only (for home cards). */
-  let topSections = [];
+  /** Flat list of curriculum sections (+ children), in reading order. */
+  let flatCurriculum = [];
+  /** Ids of home scroll anchors (Problem Statement + Guide Purpose and Scope). */
+  let homeAnchorIds = [];
 
   // ---------- Utilities ----------
 
@@ -24,20 +27,11 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
     }[c]));
 
-  /** Slugify arbitrary heading text for anchor ids on the right rail. */
-  const slugify = (s) =>
-    s.toLowerCase().trim()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-');
-
-  /** Walk the manifest into a flat list preserving hierarchy metadata. */
+  /** Walk the curriculum into a flat list preserving hierarchy metadata. */
   function flatten(sections, depth = 0, acc = []) {
     for (const s of sections) {
       acc.push({ ...s, depth });
-      if (s.children && s.children.length) {
-        flatten(s.children, depth + 1, acc);
-      }
+      if (s.children && s.children.length) flatten(s.children, depth + 1, acc);
     }
     return acc;
   }
@@ -58,70 +52,42 @@
 
   // ---------- Nav helpers ----------
 
-  function highlightNav(route) {
-    const map = {
-      home: '/',
-      principles: 'key-principles',
-      guide: 'problem-statement',
-    };
+  function highlightHeaderNav(route) {
     document.querySelectorAll('.site-nav a').forEach((a) => {
       const key = a.dataset.nav;
       const match =
         (key === 'home' && route === '/') ||
-        (key !== 'home' && map[key] === route);
+        (key === 'principles' && route !== '/');
       a.classList.toggle('is-active', !!match);
     });
   }
 
   // ---------- HOME VIEW ----------
 
-  function statsHtml() {
-    const topCount = topSections.length;
-    const principleCount = (topSections.find((s) => s.id === 'key-principles') || {}).children?.length || 0;
-    const sectionCount = flatSections.length;
-    const status = manifest.status || 'Draft';
-    const rows = [
-      { label: 'Top-Level Sections', value: topCount },
-      { label: 'Key Principles', value: principleCount, gradient: true },
-      { label: 'Total Pages', value: sectionCount },
-      { label: 'Status', value: `${escapeHtml(status)} v${escapeHtml(manifest.version || '0.1')}` },
-    ];
-    return `
-      <section class="stats" aria-label="At a glance">
-        <div class="wrap">
-          <div class="stats__grid">
-            ${rows.map((r) => `
-              <div class="stat">
-                <div class="stat__label">${escapeHtml(r.label)}</div>
-                <div class="stat__value">${r.gradient ? `<span class="gradient-text">${r.value}</span>` : r.value}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      </section>
-    `;
-  }
+  async function renderHome(scrollAnchorId) {
+    const blocks = (manifest.home && manifest.home.blocks) || [];
+    const bodies = await Promise.all(
+      blocks.map((b) =>
+        loadMarkdown(b.file).then(
+          (md) => ({ block: b, md }),
+          (err) => ({ block: b, error: err.message }),
+        ),
+      ),
+    );
 
-  function cardHtml(section, variant = '') {
-    const meta = section.children?.length
-      ? `${section.children.length} sub-sections`
-      : 'Read section';
-    return `
-      <a class="card ${variant}" href="#${escapeHtml(section.id)}">
-        <div class="card__number">${escapeHtml(section.number)}</div>
-        <h3 class="card__title">${escapeHtml(section.title)}</h3>
-        <p class="card__desc">${escapeHtml(section.description || '')}</p>
-        <div class="card__footer">
-          <span>${meta}</span>
-          <span class="card__arrow" aria-hidden="true">→</span>
-        </div>
-      </a>
-    `;
-  }
-
-  function renderHome() {
-    const principles = topSections.find((s) => s.id === 'key-principles')?.children || [];
-    const fundamentals = topSections.filter((s) => s.id !== 'key-principles');
+    const blockHtml = bodies
+      .map(({ block, md, error }) => {
+        const body = error
+          ? `<p><em>Unable to load: ${escapeHtml(error)}</em></p>`
+          : marked.parse(md, { mangle: false, headerIds: false });
+        return `
+          <section class="home-block" id="${escapeHtml(block.id)}">
+            <h2>${escapeHtml(block.title)}</h2>
+            <div class="home-block__body">${body}</div>
+          </section>
+        `;
+      })
+      .join('');
 
     viewEl.innerHTML = `
       <section class="hero">
@@ -130,68 +96,97 @@
           <h1>Quick Start Guide for Project Teams Adopting <span class="gradient-text">GenAI Solutions</span></h1>
           <p class="hero__lede">${escapeHtml(manifest.subtitle || '')}</p>
           <div class="hero__ctas">
-            <a class="btn btn--gradient" href="#problem-statement">Start Reading</a>
-            <a class="btn btn--ghost" href="#key-principles">Browse Principles</a>
+            <a class="btn btn--gradient" href="#key-principles">Explore Key Principles</a>
+            <a class="btn btn--ghost" href="#problem-statement">Read Problem Statement</a>
           </div>
           <p class="hero__disclaimer">An internal EPAM community resource — ${escapeHtml(manifest.status || 'Draft')} v${escapeHtml(manifest.version || '0.1')}</p>
         </div>
       </section>
 
-      ${statsHtml()}
-
-      <section class="home-section">
+      <section class="home-blocks">
         <div class="wrap">
-          <header class="home-section__head">
-            <h2 class="home-section__title">Key Principles</h2>
-            <p class="home-section__lede">Six technology-agnostic principles covering the business and organizational practices that drive GenAI adoption, reliability, and measurable value.</p>
-          </header>
-          <div class="card-grid card-grid--cols-3">
-            ${principles.map((s) => cardHtml(s)).join('')}
-          </div>
+          ${blockHtml}
         </div>
       </section>
 
-      <section class="home-section">
+      <section class="home-cta">
         <div class="wrap">
-          <header class="home-section__head">
-            <h2 class="home-section__title">Start Here</h2>
-            <p class="home-section__lede">The problem this playbook solves and what it covers.</p>
-          </header>
-          <div class="card-grid card-grid--cols-2">
-            ${fundamentals.map((s) => cardHtml(s, 'card--fundamentals')).join('')}
+          <div class="home-cta__inner">
+            <h3>Ready to dive in?</h3>
+            <p>Explore the six technology-agnostic principles that drive GenAI adoption, reliability, and measurable value.</p>
+            <a class="btn btn--gradient" href="#key-principles">Browse Key Principles</a>
           </div>
         </div>
       </section>
     `;
 
-    highlightNav('/');
+    highlightHeaderNav('/');
     document.title = `${manifest.title} — Delivery Playbook`;
+
+    // Scroll either to a specific block or to the top.
+    if (scrollAnchorId) {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(scrollAnchorId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    }
   }
 
   // ---------- SECTION VIEW ----------
 
-  /** Build the "On this page" rail from rendered h2/h3 headings. */
-  function buildRail(container) {
-    const headings = container.querySelectorAll('h2, h3');
-    if (!headings.length) return '';
-    const items = [];
-    headings.forEach((h) => {
-      if (!h.id) h.id = slugify(h.textContent);
-      items.push({ id: h.id, text: h.textContent, level: h.tagName });
-    });
+  /** Build the curriculum sidebar HTML for the given active section. */
+  function curriculumSidebarHtml(activeId) {
+    // Figure out which top-level entry the active section belongs to.
+    const activeTop = manifest.curriculum.find(
+      (top) => top.id === activeId || (top.children || []).some((c) => c.id === activeId),
+    );
+
+    const items = manifest.curriculum.map((top) => {
+      const isActiveTop = !!activeTop && activeTop.id === top.id;
+      const isActive = activeId === top.id;
+      const children = top.children || [];
+      const subs = children
+        .map((c) => `
+          <li>
+            <a href="#${escapeHtml(c.id)}" class="${c.id === activeId ? 'is-active' : ''}">
+              <span class="curriculum__num">${escapeHtml(c.number)}</span>
+              <span class="curriculum__title">${escapeHtml(c.title)}</span>
+            </a>
+          </li>
+        `)
+        .join('');
+
+      return `
+        <li class="curriculum__item ${isActiveTop ? 'is-expanded' : ''}">
+          <a href="#${escapeHtml(top.id)}" class="curriculum__link ${isActive ? 'is-active' : ''}">
+            <span class="curriculum__num">${escapeHtml(top.number)}</span>
+            <span class="curriculum__title">${escapeHtml(top.title)}</span>
+            <span class="curriculum__toggle" aria-hidden="true">${isActiveTop ? '∧' : '∨'}</span>
+          </a>
+          ${subs ? `<ul class="curriculum__sub">${subs}</ul>` : ''}
+        </li>
+      `;
+    }).join('');
+
     return `
-      <aside class="rail" aria-label="On this page">
-        <p class="rail__heading">On this page</p>
-        <ul>
-          ${items.map((i) => `<li><a href="#${escapeHtml(flatSections.sectionId || '')}/${escapeHtml(i.id)}" data-anchor="${escapeHtml(i.id)}">${escapeHtml(i.text)}</a></li>`).join('')}
-        </ul>
+      <aside class="curriculum" aria-label="Curriculum navigation">
+        <div class="curriculum__group">
+          <h4 class="curriculum__heading">Study Tools</h4>
+          <a class="curriculum__simple" href="#/">Home</a>
+        </div>
+        <div class="curriculum__group">
+          <h4 class="curriculum__heading">Curriculum</h4>
+          <ul class="curriculum__items">${items}</ul>
+        </div>
       </aside>
     `;
   }
 
   function pagerHtml(idx) {
-    const prev = idx > 0 ? flatSections[idx - 1] : null;
-    const next = idx < flatSections.length - 1 ? flatSections[idx + 1] : null;
+    const prev = idx > 0 ? flatCurriculum[idx - 1] : null;
+    const next = idx < flatCurriculum.length - 1 ? flatCurriculum[idx + 1] : null;
     const linkHtml = (section, kind) => {
       if (!section) {
         return `<span class="pager__link pager__link--disabled" aria-hidden="true"></span>`;
@@ -207,30 +202,45 @@
     return `<nav class="pager" aria-label="Pager">${linkHtml(prev, 'prev')}${linkHtml(next, 'next')}</nav>`;
   }
 
+  function findCurriculumParent(id) {
+    for (const top of manifest.curriculum) {
+      if (top.id === id) return null; // top-level
+      if ((top.children || []).some((c) => c.id === id)) return top;
+    }
+    return null;
+  }
+
   async function renderSection(id) {
-    const idx = flatSections.findIndex((s) => s.id === id);
+    const idx = flatCurriculum.findIndex((s) => s.id === id);
     if (idx === -1) {
       viewEl.innerHTML = `
         <div class="wrap section-view">
-          <h1 class="article h1">Section not found</h1>
-          <p>No content is registered for <code>${escapeHtml(id)}</code>. Check <code>content/manifest.json</code>.</p>
-          <p><a href="#/">← Back home</a></p>
+          <article class="article">
+            <h1>Section not found</h1>
+            <p>No content is registered for <code>${escapeHtml(id)}</code>.</p>
+            <p><a href="#/">← Back home</a></p>
+          </article>
         </div>
       `;
       return;
     }
 
-    const section = flatSections[idx];
-    const parent = findParent(id);
+    const section = flatCurriculum[idx];
+    const parent = findCurriculumParent(id);
 
-    // Loading placeholder while fetching
+    // Loading placeholder.
     viewEl.innerHTML = `
       <div class="wrap section-view">
-        <div class="skeleton">
-          <div class="skeleton__line skeleton__line--title"></div>
-          <div class="skeleton__line"></div>
-          <div class="skeleton__line"></div>
-          <div class="skeleton__line skeleton__line--short"></div>
+        <div class="section-view__inner">
+          ${curriculumSidebarHtml(id)}
+          <div>
+            <div class="skeleton">
+              <div class="skeleton__line skeleton__line--title"></div>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line skeleton__line--short"></div>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -239,62 +249,30 @@
       const md = await loadMarkdown(section.file);
       const html = marked.parse(md, { mangle: false, headerIds: false });
 
-      const crumbParts = [
+      const crumb = [
         `<a href="#/">Home</a>`,
+        `<span class="breadcrumb__sep">/</span>`,
       ];
-      if (parent && parent.id !== section.id) {
-        crumbParts.push(`<span class="breadcrumb__sep">/</span>`);
-        crumbParts.push(`<a href="#${escapeHtml(parent.id)}">${escapeHtml(parent.title)}</a>`);
+      if (parent) {
+        crumb.push(`<a href="#${escapeHtml(parent.id)}">${escapeHtml(parent.title)}</a>`);
+        crumb.push(`<span class="breadcrumb__sep">/</span>`);
       }
-      crumbParts.push(`<span class="breadcrumb__sep">/</span>`);
-      crumbParts.push(`<span>${escapeHtml(section.title)}</span>`);
+      crumb.push(`<span>${escapeHtml(section.title)}</span>`);
 
       viewEl.innerHTML = `
         <div class="wrap section-view">
-          <nav class="breadcrumb" aria-label="Breadcrumb">${crumbParts.join('')}</nav>
           <div class="section-view__inner">
+            ${curriculumSidebarHtml(id)}
             <article class="article">
+              <nav class="breadcrumb" aria-label="Breadcrumb">${crumb.join('')}</nav>
               <span class="article__eyebrow">Section ${escapeHtml(section.number)}</span>
+              <h1>${escapeHtml(section.title)}</h1>
               <div class="article__body">${html}</div>
               ${pagerHtml(idx)}
             </article>
-            <div id="rail-slot"></div>
           </div>
         </div>
       `;
-
-      // Build the on-this-page rail from the rendered article headings
-      const articleBody = viewEl.querySelector('.article__body');
-      const railSlot = viewEl.querySelector('#rail-slot');
-      if (articleBody && railSlot) {
-        const headings = articleBody.querySelectorAll('h2, h3');
-        if (headings.length) {
-          const items = [];
-          headings.forEach((h, i) => {
-            const anchorId = slugify(h.textContent) || `h-${i}`;
-            h.id = anchorId;
-            items.push({ id: anchorId, text: h.textContent });
-          });
-          railSlot.innerHTML = `
-            <aside class="rail" aria-label="On this page">
-              <p class="rail__heading">On this page</p>
-              <ul>
-                ${items.map((i) => `<li><a href="javascript:void(0)" data-scroll="${escapeHtml(i.id)}">${escapeHtml(i.text)}</a></li>`).join('')}
-              </ul>
-            </aside>
-          `;
-          // Rail click = smooth scroll (avoids clobbering the main hash route)
-          railSlot.querySelectorAll('[data-scroll]').forEach((a) => {
-            a.addEventListener('click', (e) => {
-              e.preventDefault();
-              const target = document.getElementById(a.dataset.scroll);
-              if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              railSlot.querySelectorAll('a').forEach((x) => x.classList.remove('is-active'));
-              a.classList.add('is-active');
-            });
-          });
-        }
-      }
     } catch (err) {
       viewEl.innerHTML = `
         <div class="wrap section-view">
@@ -307,36 +285,30 @@
       `;
     }
 
-    highlightNav(section.id === 'key-principles' ? 'key-principles' : (parent && parent.id === 'key-principles' ? 'key-principles' : 'problem-statement'));
+    highlightHeaderNav(id);
     document.title = `${section.number} ${section.title} — ${manifest.title}`;
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
-  }
-
-  function findParent(id) {
-    for (const top of manifest.sections) {
-      if (top.id === id) return top;
-      if (top.children) {
-        for (const child of top.children) {
-          if (child.id === id) return top;
-        }
-      }
-    }
-    return null;
   }
 
   // ---------- Routing ----------
 
   function currentRoute() {
     const hash = window.location.hash.replace(/^#/, '').trim();
-    if (!hash || hash === '/' || hash === '') return '/';
-    if (flatSections.some((s) => s.id === hash)) return hash;
-    return '/';
+    if (!hash || hash === '/' || hash === '') return { kind: 'home' };
+
+    // Home anchor scroll links
+    if (homeAnchorIds.includes(hash)) return { kind: 'home', scrollTo: hash };
+
+    // Curriculum section (top or child)
+    if (flatCurriculum.some((s) => s.id === hash)) return { kind: 'section', id: hash };
+
+    return { kind: 'home' };
   }
 
   function handleRoute() {
     const route = currentRoute();
-    if (route === '/') renderHome();
-    else renderSection(route);
+    if (route.kind === 'home') renderHome(route.scrollTo);
+    else renderSection(route.id);
   }
 
   // ---------- Boot ----------
@@ -358,9 +330,12 @@
       return;
     }
 
-    topSections = manifest.sections;
-    flatSections = flatten(manifest.sections);
-    if (versionEl && manifest.version) versionEl.textContent = `${manifest.status || 'Draft'} v${manifest.version}`;
+    flatCurriculum = flatten(manifest.curriculum || []);
+    homeAnchorIds = ((manifest.home && manifest.home.blocks) || []).map((b) => b.id);
+
+    if (versionEl && manifest.version) {
+      versionEl.textContent = `${manifest.status || 'Draft'} v${manifest.version}`;
+    }
 
     handleRoute();
     window.addEventListener('hashchange', handleRoute);

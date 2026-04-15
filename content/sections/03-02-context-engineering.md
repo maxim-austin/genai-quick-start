@@ -1,5 +1,3 @@
-# 3.2 Mastering Context Engineering – The Path to Reliable AI Results
-
 Context engineering is a fundamental shift in how we build with LLMs. As models become more capable, success depends less on writing "smart code" and more on curating what information the model sees within its limited context window at each step. With modern Data & AI platforms offering low/no-code agent frameworks, the key quality attributes (accuracy, trustworthiness, explainability) increasingly depend on context design rather than application logic.
 
 ## Typical context engineering methods for Talk-to-your-Data solutions
