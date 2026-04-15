@@ -21,7 +21,7 @@
   "pages": [
     {
       "id": "contributors",
-      "title": "Guide Contributors",
+      "title": "Contributors",
       "lede": "The experts shaping this playbook.",
       "file": "sections/contributors.md"
     }

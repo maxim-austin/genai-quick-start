@@ -131,9 +131,15 @@ a:hover { color: var(--color-lilac); }
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: .08em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
 }
 .site-nav a:hover { color: var(--text); }
-.site-nav a.is-active { color: var(--text); }
+.site-nav a.is-active {
+  color: var(--text-strong);
+  border-bottom-color: var(--color-cyan);
+}
 
 /* Logo (text wordmark) */
 .logo {
