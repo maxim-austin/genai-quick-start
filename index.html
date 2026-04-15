@@ -3,60 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quick Start Guide for Project Teams Adopting GenAI Solutions</title>
+  <title>GenAI Quick Start — Delivery Playbook</title>
+  <meta name="description" content="A practical playbook for EPAM project teams delivering GenAI solutions — from POC to MVP." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="site-header__inner">
-      <a class="brand" href="#">
-        <span class="brand__mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2 L20 6 L20 14 C20 18.5 16.5 21.5 12 22 C7.5 21.5 4 18.5 4 14 L4 6 Z"/>
-            <path d="M9 12 L11 14 L15 10"/>
-          </svg>
-        </span>
-        <span class="brand__text">
-          <span class="brand__title" data-js="doc-title">GenAI Quick Start</span>
-          <span class="brand__subtitle">Knowledge Base</span>
-        </span>
+    <div class="wrap site-header__inner">
+      <a class="logo" href="#/" aria-label="data and analytics home">
+        <span class="logo__hash">#</span><span class="logo__word">data</span><span class="logo__amp">&amp;</span><span class="logo__accent">analytics</span>
       </a>
-      <nav class="site-header__nav">
-        <a href="#problem-statement">Guide</a>
-        <a href="https://elements.epam.com/" target="_blank" rel="noopener">Design</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#/" data-nav="home">Home</a>
+        <a href="#key-principles" data-nav="principles">Principles</a>
+        <a href="#problem-statement" data-nav="guide">Guide</a>
       </nav>
+      <a class="btn btn--gradient btn--sm" href="#problem-statement">Start Reading</a>
     </div>
   </header>
 
-  <main class="layout">
-    <aside class="sidebar" aria-label="Table of contents">
-      <div class="sidebar__inner">
-        <div class="sidebar__heading">Contents</div>
-        <nav id="toc" class="toc" aria-label="Document sections"></nav>
+  <main id="view" role="main">
+    <div class="wrap">
+      <div class="skeleton">
+        <div class="skeleton__line skeleton__line--title"></div>
+        <div class="skeleton__line"></div>
+        <div class="skeleton__line"></div>
+        <div class="skeleton__line skeleton__line--short"></div>
       </div>
-    </aside>
-
-    <article class="content">
-      <div id="content-root" class="content__body">
-        <!-- Rendered section content goes here -->
-        <div class="skeleton">
-          <div class="skeleton__line skeleton__line--title"></div>
-          <div class="skeleton__line"></div>
-          <div class="skeleton__line"></div>
-          <div class="skeleton__line skeleton__line--short"></div>
-        </div>
-      </div>
-      <nav class="pager" id="pager" aria-label="Pager"></nav>
-    </article>
+    </div>
   </main>
 
   <footer class="site-footer">
-    <div class="site-footer__inner">
-      <span>Quick Start Guide for Project Teams Adopting GenAI Solutions</span>
-      <span class="site-footer__meta">Draft <span id="doc-version"></span></span>
+    <div class="wrap">
+      <div class="site-footer__grid">
+        <div class="site-footer__col site-footer__brand">
+          <a class="logo" href="#/" style="font-size: 22px;">
+            <span class="logo__hash">#</span><span class="logo__word">data</span><span class="logo__amp">&amp;</span><span class="logo__accent">analytics</span>
+          </a>
+          <p>A practical playbook for EPAM teams delivering GenAI solutions — expectation management, context engineering, measurement, and incremental delivery.</p>
+        </div>
+        <div class="site-footer__col">
+          <h4>Guide</h4>
+          <ul>
+            <li><a href="#problem-statement">Problem statement</a></li>
+            <li><a href="#document-purpose-and-scope">Scope</a></li>
+            <li><a href="#key-principles">Key principles</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Principles</h4>
+          <ul>
+            <li><a href="#stakeholder-expectations">Expectations</a></li>
+            <li><a href="#context-engineering">Context Engineering</a></li>
+            <li><a href="#measurement">Measurement</a></li>
+            <li><a href="#roi">ROI framing</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="https://github.com/maxim-austin/genai-quick-start" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://elements.epam.com/" target="_blank" rel="noopener">EPAM Elements</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bar">
+        <span>Quick Start Guide — Project Teams Adopting GenAI Solutions</span>
+        <span id="doc-version">Draft v0.1</span>
+      </div>
     </div>
   </footer>
 

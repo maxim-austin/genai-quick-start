@@ -1,61 +1,72 @@
 {
   "title": "Quick Start Guide for Project Teams Adopting GenAI Solutions",
-  "subtitle": "Draft — a practical guide for EPAM teams delivering GenAI solutions",
+  "subtitle": "A practical playbook for EPAM teams delivering GenAI solutions — from POC to MVP",
+  "eyebrow": "Delivery Playbook // Data & Analytics",
   "version": "0.1",
+  "status": "Draft",
   "sections": [
     {
       "id": "problem-statement",
       "number": "1",
       "title": "Problem statement",
-      "file": "sections/01-problem-statement.md"
+      "file": "sections/01-problem-statement.md",
+      "description": "Common challenges EPAM teams face when moving GenAI solutions from POC to MVP — from accuracy and reliability to performance and cost."
     },
     {
       "id": "document-purpose-and-scope",
       "number": "2",
       "title": "Document purpose and scope",
-      "file": "sections/02-document-purpose-and-scope.md"
+      "file": "sections/02-document-purpose-and-scope.md",
+      "description": "What this guide covers, who it is written for, and what intentionally falls outside its scope."
     },
     {
       "id": "key-principles",
       "number": "3",
       "title": "Key principles",
       "file": "sections/03-key-principles.md",
+      "description": "Six technology-agnostic principles covering expectation management, context engineering, data products, measurement, ROI framing, and incremental delivery.",
       "children": [
         {
           "id": "stakeholder-expectations",
           "number": "3.1",
           "title": "Set realistic stakeholder expectations",
-          "file": "sections/03-01-stakeholder-expectations.md"
+          "file": "sections/03-01-stakeholder-expectations.md",
+          "description": "Align users and sponsors around what LLMs can and cannot reliably do, and set acceptable quality targets."
         },
         {
           "id": "context-engineering",
           "number": "3.2",
           "title": "Mastering Context Engineering",
-          "file": "sections/03-02-context-engineering.md"
+          "file": "sections/03-02-context-engineering.md",
+          "description": "Curate what information the model sees — system prompts, metadata, ontologies, RAG, and GraphRAG — as the path to reliable AI results."
         },
         {
           "id": "data-products",
           "number": "3.3",
-          "title": "Garbage in, garbage out: data products matter",
-          "file": "sections/03-03-data-products.md"
+          "title": "Data products matter even more",
+          "file": "sections/03-03-data-products.md",
+          "description": "Garbage in, garbage out — curated, domain-oriented data products are the prerequisite for trustworthy GenAI outcomes."
         },
         {
           "id": "measurement",
           "number": "3.4",
           "title": "You can't improve what you don't measure",
-          "file": "sections/03-04-measurement.md"
+          "file": "sections/03-04-measurement.md",
+          "description": "Combine automated evaluation and real user feedback to drive continuous, measurable quality improvements."
         },
         {
           "id": "roi",
           "number": "3.5",
-          "title": "Use ROI (not raw spend) to discuss costs",
-          "file": "sections/03-05-roi.md"
+          "title": "Use ROI to discuss costs",
+          "file": "sections/03-05-roi.md",
+          "description": "Shift the conversation from raw spend to ROI — define personas, success metrics, and plan cost optimization as a deliberate phase."
         },
         {
           "id": "start-small",
           "number": "3.6",
-          "title": "Start small and increase complexity gradually",
-          "file": "sections/03-06-start-small.md"
+          "title": "Start small, grow complexity gradually",
+          "file": "sections/03-06-start-small.md",
+          "description": "Begin with a proven data product and guided tooling. Add RAG, GraphRAG, and multi-agent orchestration only after baseline reliability."
         }
       ]
     }
