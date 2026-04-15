@@ -18,57 +18,64 @@
       }
     ]
   },
+  "pages": [
+    {
+      "id": "contributors",
+      "title": "Guide Contributors",
+      "lede": "The experts shaping this playbook.",
+      "file": "sections/contributors.md"
+    }
+  ],
   "curriculum": [
     {
       "id": "key-principles",
-      "number": "3",
       "title": "Key Principles",
       "file": "sections/03-key-principles.md",
       "description": "Six technology-agnostic principles covering expectation management, context engineering, data products, measurement, ROI framing, and incremental delivery.",
       "children": [
         {
           "id": "stakeholder-expectations",
-          "number": "3.1",
           "title": "Set realistic stakeholder expectations",
           "file": "sections/03-01-stakeholder-expectations.md",
           "description": "Align users and sponsors around what LLMs can and cannot reliably do, and set acceptable quality targets."
         },
         {
           "id": "context-engineering",
-          "number": "3.2",
           "title": "Mastering Context Engineering",
           "file": "sections/03-02-context-engineering.md",
           "description": "Curate what information the model sees — system prompts, metadata, ontologies, RAG, and GraphRAG — as the path to reliable AI results."
         },
         {
           "id": "data-products",
-          "number": "3.3",
           "title": "Data products matter even more",
           "file": "sections/03-03-data-products.md",
           "description": "Garbage in, garbage out — curated, domain-oriented data products are the prerequisite for trustworthy GenAI outcomes."
         },
         {
           "id": "measurement",
-          "number": "3.4",
           "title": "You can't improve what you don't measure",
           "file": "sections/03-04-measurement.md",
           "description": "Combine automated evaluation and real user feedback to drive continuous, measurable quality improvements."
         },
         {
           "id": "roi",
-          "number": "3.5",
           "title": "Use ROI to discuss costs",
           "file": "sections/03-05-roi.md",
           "description": "Shift the conversation from raw spend to ROI — define personas, success metrics, and plan cost optimization as a deliberate phase."
         },
         {
           "id": "start-small",
-          "number": "3.6",
           "title": "Start small, grow complexity gradually",
           "file": "sections/03-06-start-small.md",
           "description": "Begin with a proven data product and guided tooling. Add RAG, GraphRAG, and multi-agent orchestration only after baseline reliability."
         }
       ]
+    },
+    {
+      "id": "evaluation-approach",
+      "title": "Evaluation Approach",
+      "file": "sections/evaluation-approach.md",
+      "description": "How to design and run evaluations for GenAI solutions — test case curation, automated benchmarks, user feedback, and regression tracking."
     }
   ]
 }

@@ -3,4 +3,3 @@ This guide is a practical, high-level quick start for EPAM project teams deliver
 **Out of scope:**
 
 - Detailed technical design and implementation guidance (architecture patterns, code-level frameworks, integration details).
-- GenAI MLOps / operationalization practices (e.g., monitoring, governance tooling, CI/CD for prompts/models/agents), which are addressed in a separate document.

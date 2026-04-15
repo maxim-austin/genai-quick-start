@@ -2,23 +2,24 @@
    GenAI Quick Start — client app
 
    Routing:
-     #/                      → home (hero + inlined Problem Statement and
-                                Guide Purpose and Scope blocks)
-     #<curriculum-section>   → reader view with left sidebar (Key Principles
-                                tree) + single-column article
-     #problem-statement      → home, smooth-scroll to that block
-     #guide-purpose-and-scope → home, smooth-scroll to that block
+     #/                        → home (hero + inlined home blocks)
+     #<home-anchor>            → home, smooth-scroll to that block
+     #<standalone-page>        → standalone page (e.g. contributors)
+     #<curriculum-section>     → reader view with collapsible left sidebar
    ========================================================================== */
 
 (() => {
   const viewEl = document.getElementById('view');
-  const versionEl = document.getElementById('doc-version');
 
   let manifest = null;
   /** Flat list of curriculum sections (+ children), in reading order. */
   let flatCurriculum = [];
   /** Ids of home scroll anchors (Problem Statement + Guide Purpose and Scope). */
   let homeAnchorIds = [];
+  /** Map of standalone page id → page meta. */
+  let standalonePages = {};
+  /** Top-level curriculum ids the user has manually toggled expand/collapse on. */
+  const toggleOverrides = new Map();
 
   // ---------- Utilities ----------
 
@@ -57,7 +58,7 @@
       const key = a.dataset.nav;
       const match =
         (key === 'home' && route === '/') ||
-        (key === 'principles' && route !== '/');
+        (key === 'contributors' && route === 'contributors');
       a.classList.toggle('is-active', !!match);
     });
   }
@@ -113,7 +114,7 @@
         <div class="wrap">
           <div class="home-cta__inner">
             <h3>Ready to dive in?</h3>
-            <p>Explore the six technology-agnostic principles that drive GenAI adoption, reliability, and measurable value.</p>
+            <p>Explore the technology-agnostic principles that drive GenAI adoption, reliability, and measurable value.</p>
             <a class="btn btn--gradient" href="#key-principles">Browse Key Principles</a>
           </div>
         </div>
@@ -123,7 +124,6 @@
     highlightHeaderNav('/');
     document.title = `${manifest.title} — Delivery Playbook`;
 
-    // Scroll either to a specific block or to the top.
     if (scrollAnchorId) {
       requestAnimationFrame(() => {
         const el = document.getElementById(scrollAnchorId);
@@ -134,24 +134,80 @@
     }
   }
 
-  // ---------- SECTION VIEW ----------
+  // ---------- STANDALONE PAGE VIEW (e.g. Contributors) ----------
 
-  /** Build the curriculum sidebar HTML for the given active section. */
+  async function renderStandalonePage(id) {
+    const page = standalonePages[id];
+    if (!page) {
+      renderHome();
+      return;
+    }
+
+    viewEl.innerHTML = `
+      <div class="wrap section-view">
+        <div class="skeleton">
+          <div class="skeleton__line skeleton__line--title"></div>
+          <div class="skeleton__line"></div>
+          <div class="skeleton__line"></div>
+          <div class="skeleton__line skeleton__line--short"></div>
+        </div>
+      </div>
+    `;
+
+    try {
+      const md = await loadMarkdown(page.file);
+      const html = marked.parse(md, { mangle: false, headerIds: false });
+
+      viewEl.innerHTML = `
+        <div class="wrap section-view">
+          <article class="article article--standalone">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="#/">Home</a>
+              <span class="breadcrumb__sep">/</span>
+              <span>${escapeHtml(page.title)}</span>
+            </nav>
+            <h1>${escapeHtml(page.title)}</h1>
+            ${page.lede ? `<p class="hero__lede" style="margin-top:-4px;">${escapeHtml(page.lede)}</p>` : ''}
+            <div class="article__body">${html}</div>
+          </article>
+        </div>
+      `;
+    } catch (err) {
+      viewEl.innerHTML = `
+        <div class="wrap section-view">
+          <article class="article">
+            <h1>Unable to load page</h1>
+            <p>${escapeHtml(err.message)}</p>
+            <p><a href="#/">← Back home</a></p>
+          </article>
+        </div>
+      `;
+    }
+
+    highlightHeaderNav(id);
+    document.title = `${page.title} — ${manifest.title}`;
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  // ---------- SECTION VIEW (Curriculum) ----------
+
+  /** Decide whether a curriculum top-level item should render expanded. */
+  function isTopExpanded(top, activeId) {
+    if (toggleOverrides.has(top.id)) return toggleOverrides.get(top.id);
+    if (!top.children || !top.children.length) return false;
+    if (top.id === activeId) return true;
+    return top.children.some((c) => c.id === activeId);
+  }
+
   function curriculumSidebarHtml(activeId) {
-    // Figure out which top-level entry the active section belongs to.
-    const activeTop = manifest.curriculum.find(
-      (top) => top.id === activeId || (top.children || []).some((c) => c.id === activeId),
-    );
-
     const items = manifest.curriculum.map((top) => {
-      const isActiveTop = !!activeTop && activeTop.id === top.id;
+      const hasChildren = !!(top.children && top.children.length);
+      const expanded = hasChildren && isTopExpanded(top, activeId);
       const isActive = activeId === top.id;
-      const children = top.children || [];
-      const subs = children
+      const subs = (top.children || [])
         .map((c) => `
           <li>
             <a href="#${escapeHtml(c.id)}" class="${c.id === activeId ? 'is-active' : ''}">
-              <span class="curriculum__num">${escapeHtml(c.number)}</span>
               <span class="curriculum__title">${escapeHtml(c.title)}</span>
             </a>
           </li>
@@ -159,12 +215,19 @@
         .join('');
 
       return `
-        <li class="curriculum__item ${isActiveTop ? 'is-expanded' : ''}">
-          <a href="#${escapeHtml(top.id)}" class="curriculum__link ${isActive ? 'is-active' : ''}">
-            <span class="curriculum__num">${escapeHtml(top.number)}</span>
-            <span class="curriculum__title">${escapeHtml(top.title)}</span>
-            <span class="curriculum__toggle" aria-hidden="true">${isActiveTop ? '∧' : '∨'}</span>
-          </a>
+        <li class="curriculum__item ${expanded ? 'is-expanded' : ''}" data-top-id="${escapeHtml(top.id)}">
+          <div class="curriculum__row">
+            <a href="#${escapeHtml(top.id)}" class="curriculum__link ${isActive ? 'is-active' : ''}">
+              <span class="curriculum__title">${escapeHtml(top.title)}</span>
+            </a>
+            ${hasChildren ? `
+              <button class="curriculum__toggle" type="button"
+                      aria-expanded="${expanded}"
+                      aria-label="Toggle ${escapeHtml(top.title)} subsections">
+                ${expanded ? '∧' : '∨'}
+              </button>
+            ` : ''}
+          </div>
           ${subs ? `<ul class="curriculum__sub">${subs}</ul>` : ''}
         </li>
       `;
@@ -184,6 +247,24 @@
     `;
   }
 
+  /** Wire up click-to-toggle behavior on sidebar chevron buttons. */
+  function bindSidebarToggles() {
+    viewEl.querySelectorAll('.curriculum__toggle').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const item = btn.closest('.curriculum__item');
+        if (!item) return;
+        const topId = item.dataset.topId;
+        const nowExpanded = !item.classList.contains('is-expanded');
+        item.classList.toggle('is-expanded', nowExpanded);
+        btn.textContent = nowExpanded ? '∧' : '∨';
+        btn.setAttribute('aria-expanded', String(nowExpanded));
+        if (topId) toggleOverrides.set(topId, nowExpanded);
+      });
+    });
+  }
+
   function pagerHtml(idx) {
     const prev = idx > 0 ? flatCurriculum[idx - 1] : null;
     const next = idx < flatCurriculum.length - 1 ? flatCurriculum[idx + 1] : null;
@@ -195,7 +276,7 @@
       return (
         `<a class="pager__link pager__link--${kind}" href="#${escapeHtml(section.id)}">` +
           `<span class="pager__label">${label}</span>` +
-          `<span class="pager__title">${escapeHtml(section.number)} &middot; ${escapeHtml(section.title)}</span>` +
+          `<span class="pager__title">${escapeHtml(section.title)}</span>` +
         `</a>`
       );
     };
@@ -228,7 +309,7 @@
     const section = flatCurriculum[idx];
     const parent = findCurriculumParent(id);
 
-    // Loading placeholder.
+    // Loading placeholder (sidebar rendered already).
     viewEl.innerHTML = `
       <div class="wrap section-view">
         <div class="section-view__inner">
@@ -244,6 +325,7 @@
         </div>
       </div>
     `;
+    bindSidebarToggles();
 
     try {
       const md = await loadMarkdown(section.file);
@@ -265,7 +347,6 @@
             ${curriculumSidebarHtml(id)}
             <article class="article">
               <nav class="breadcrumb" aria-label="Breadcrumb">${crumb.join('')}</nav>
-              <span class="article__eyebrow">Section ${escapeHtml(section.number)}</span>
               <h1>${escapeHtml(section.title)}</h1>
               <div class="article__body">${html}</div>
               ${pagerHtml(idx)}
@@ -273,6 +354,7 @@
           </div>
         </div>
       `;
+      bindSidebarToggles();
     } catch (err) {
       viewEl.innerHTML = `
         <div class="wrap section-view">
@@ -286,7 +368,7 @@
     }
 
     highlightHeaderNav(id);
-    document.title = `${section.number} ${section.title} — ${manifest.title}`;
+    document.title = `${section.title} — ${manifest.title}`;
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
@@ -296,10 +378,8 @@
     const hash = window.location.hash.replace(/^#/, '').trim();
     if (!hash || hash === '/' || hash === '') return { kind: 'home' };
 
-    // Home anchor scroll links
     if (homeAnchorIds.includes(hash)) return { kind: 'home', scrollTo: hash };
-
-    // Curriculum section (top or child)
+    if (standalonePages[hash]) return { kind: 'page', id: hash };
     if (flatCurriculum.some((s) => s.id === hash)) return { kind: 'section', id: hash };
 
     return { kind: 'home' };
@@ -308,6 +388,7 @@
   function handleRoute() {
     const route = currentRoute();
     if (route.kind === 'home') renderHome(route.scrollTo);
+    else if (route.kind === 'page') renderStandalonePage(route.id);
     else renderSection(route.id);
   }
 
@@ -332,10 +413,7 @@
 
     flatCurriculum = flatten(manifest.curriculum || []);
     homeAnchorIds = ((manifest.home && manifest.home.blocks) || []).map((b) => b.id);
-
-    if (versionEl && manifest.version) {
-      versionEl.textContent = `${manifest.status || 'Draft'} v${manifest.version}`;
-    }
+    standalonePages = Object.fromEntries((manifest.pages || []).map((p) => [p.id, p]));
 
     handleRoute();
     window.addEventListener('hashchange', handleRoute);
