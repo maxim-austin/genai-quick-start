@@ -154,14 +154,19 @@ a:hover { color: var(--color-lilac); }
   white-space: nowrap;
 }
 .logo:hover { color: var(--text-strong); }
-.logo__hash { color: var(--text-strong); }
-.logo__word { color: var(--text-strong); }
+.logo__hash { color: #fff; }
+.logo__word {
+  background: linear-gradient(90deg, #04F1FF 0%, #753EFE 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .logo__amp {
-  color: rgba(245, 246, 248, 0.6);
+  color: #fff;
   margin: 0 2px;
 }
 .logo__accent {
-  background: linear-gradient(90deg, #04F1FF 0%, #1C70D3 100%);
+  background: linear-gradient(90deg, #04F1FF 0%, #753EFE 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
