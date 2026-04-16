@@ -1,124 +1,149 @@
 # Quick Start Guide for Project Teams Adopting GenAI Solutions
 
-A lightweight static knowledge base built from the source document
-*Quick Start Guide for Project Teams Adopting GenAI Solutions (Draft)*.
+A static knowledge base for EPAM project teams delivering GenAI solutions — from POC to MVP. Dark-themed, single-page application with hash routing, collapsible sidebar navigation, and Markdown-driven content.
 
-Visual style is inspired by the [EPAM Elements / UUI](https://elements.epam.com/)
-design system (Source Sans 3 typography, EPAM sky-blue `#007BBD` primary,
-flat low-shadow aesthetic, 6-px spacing scale).
+**Live site:** deployed via GitHub Pages from `main`.
 
 ## Running locally
 
 The site loads content via `fetch()`, so it must be served over HTTP
-(opening `index.html` directly via `file://` will not work).
+(`file://` will not work).
 
 ```bash
-# from the project root
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
 Any static server works (`npx serve`, `caddy file-server`, nginx, etc.).
 
-## Deploying to GitHub Pages
-
-The site is 100% static with no build step, so it can be served directly
-from a repository.
-
-1. **Push the repo to GitHub.**
-2. In the repo, go to **Settings → Pages**.
-3. Under **Source**, pick **Deploy from a branch**, select your default
-   branch (e.g. `main`) and folder **`/ (root)`**, then **Save**.
-4. Wait a minute — Pages will publish the site at
-   `https://<user>.github.io/<repo>/`.
-
-Notes:
-- A `.nojekyll` file is included at the repo root so GitHub Pages serves
-  every file verbatim and skips the default Jekyll build step (which
-  would otherwise ignore files and folders starting with `_` and slow
-  down publishing).
-- All asset and `fetch()` paths in the site are **relative**, so it works
-  whether it's served from `https://<user>.github.io/<repo>/` or from a
-  custom domain at the site root — no base-path changes required.
-- Hash-based routing (`#section-id`) is client-side, so deep links work
-  without any server rewrites or 404 fallback.
-- To use a custom domain, add a `CNAME` file at the repo root containing
-  the domain (e.g. `docs.example.com`) and configure DNS per the
-  [GitHub Pages docs](https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site).
-
 ## Project structure
 
 ```
 genai-quick-start/
-├── index.html                  # App shell: header, sidebar, content area
+├── index.html                          # App shell (header, #view mount point)
 ├── css/
-│   └── styles.css              # Design tokens + components (EPAM-inspired)
+│   └── styles.css                      # Design tokens + all component styles
 ├── js/
-│   └── app.js                  # Manifest loader, router, nav, renderer
+│   └── app.js                          # Manifest loader, SPA router, renderers
 ├── content/
-│   ├── manifest.json           # Ordered section tree — edit to add pages
+│   ├── manifest.json                   # Content registry (drives sidebar, routing, pager)
 │   └── sections/
-│       ├── 01-problem-statement.md
-│       ├── 02-document-purpose-and-scope.md
-│       ├── 03-key-principles.md
+│       ├── 01-problem-statement.md     # Home block
+│       ├── 02-guide-purpose-and-scope.md  # Home block
+│       ├── 03-key-principles.md        # Curriculum: Key Principles (parent)
 │       ├── 03-01-stakeholder-expectations.md
 │       ├── 03-02-context-engineering.md
 │       ├── 03-03-data-products.md
 │       ├── 03-04-measurement.md
 │       ├── 03-05-roi.md
-│       └── 03-06-start-small.md
+│       ├── 03-06-start-small.md
+│       ├── evaluation-approach.md      # Curriculum: Evaluation Approach
+│       └── contributors.md            # Standalone page
+├── .nojekyll                           # Bypass Jekyll on GitHub Pages
 └── README.md
 ```
 
-Each section is a standalone Markdown file, so the content is easy to edit
-without touching HTML, CSS, or JS.
+## How routing works
 
-## Adding a new section
+Hash-based SPA routing — no server rewrites needed:
 
-1. **Write the Markdown** — drop a new file into `content/sections/`,
-   e.g. `04-governance.md`. Use standard Markdown (headings, lists,
-   `**bold**`, links, code blocks, etc.).
+| Hash | View |
+|------|------|
+| `#/` or empty | Home (hero + inlined home blocks) |
+| `#problem-statement`, `#guide-purpose-and-scope` | Home, smooth-scrolled to that block |
+| `#contributors` | Standalone page |
+| `#key-principles`, `#stakeholder-expectations`, etc. | Curriculum reader with sidebar |
 
-2. **Register it in `content/manifest.json`** — add an entry to the
-   `sections` array (or to a parent section's `children` array):
+## Adding new content
+
+All content is driven by `content/manifest.json`. No JS or HTML changes needed.
+
+### Add a new curriculum section (top-level)
+
+1. Create a Markdown file in `content/sections/`, e.g. `delivery-practices.md`.
+
+2. Add an entry to the `curriculum` array in `manifest.json`:
 
    ```json
    {
-     "id": "governance",
-     "number": "4",
-     "title": "Governance",
-     "file": "sections/04-governance.md"
+     "id": "delivery-practices",
+     "title": "Delivery Practices",
+     "file": "sections/delivery-practices.md",
+     "description": "Optional description for metadata."
    }
    ```
 
-   Fields:
-   - `id` — URL hash fragment (must be unique, e.g. `#governance`)
-   - `number` — section number shown in the sidebar and eyebrow
-   - `title` — display title
-   - `file` — path relative to `content/`
-   - `children` — optional array of subsections (same shape, rendered
-     as an indented group under the parent in the sidebar)
+3. Refresh — sidebar, routing, and prev/next pager rebuild automatically.
 
-3. **Refresh** — the sidebar, routing, and prev/next pager all rebuild
-   from the manifest automatically. No code changes needed.
+### Add a subsection (child of an existing section)
 
-## Adding or changing nested subsections
+Add an entry to the parent's `children` array:
 
-Nested subsections work out of the box — just add a `children` array
-to any section in `manifest.json`. Depth is unlimited, but the sidebar
-styling currently highlights two levels (parent + children) clearly.
+```json
+{
+  "id": "key-principles",
+  "title": "Key Principles",
+  "file": "sections/03-key-principles.md",
+  "children": [
+    {
+      "id": "new-principle",
+      "title": "New Principle Title",
+      "file": "sections/03-07-new-principle.md"
+    }
+  ]
+}
+```
 
-## Changing the visual theme
+Children appear as collapsible sub-items in the sidebar under their parent.
 
-All design tokens live at the top of `css/styles.css` in the `:root`
-block — colors, typography, spacing scale, radius, and shadows.
-Override those variables to re-skin the whole site without touching
-component rules.
+### Add a standalone page
+
+Add to the `pages` array in `manifest.json`:
+
+```json
+{
+  "id": "glossary",
+  "title": "Glossary",
+  "file": "sections/glossary.md"
+}
+```
+
+Standalone pages render without the sidebar and are accessed via `#glossary`.
+
+### Add a home block
+
+Add to the `home.blocks` array — content is inlined on the home page:
+
+```json
+{
+  "id": "overview",
+  "title": "Overview",
+  "file": "sections/overview.md"
+}
+```
+
+### Manifest field reference
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | URL hash fragment (must be unique across all entries) |
+| `title` | Yes | Display title in sidebar, breadcrumbs, and pager |
+| `file` | Yes | Path relative to `content/` |
+| `description` | No | Metadata description |
+| `lede` | No | Subtitle shown on standalone pages |
+| `children` | No | Array of subsections (same shape, nested under parent in sidebar) |
+
+## Design tokens
+
+All design tokens live in the `:root` block at the top of `css/styles.css` — colors, typography, spacing, radii, and layout values. Override those variables to re-skin the site without touching component rules.
+
+**Brand colors:** cyan `#04F1FF`, purple `#753EFE`, pink `#FF50A1`, lilac `#CC93FB`, navy `#001D42`/`#01142D`.
+
+**Typography:** Barlow Condensed (display), Source Sans 3 (body), Roboto Mono (metadata) — loaded from Google Fonts.
 
 ## Dependencies
 
-- [`marked`](https://github.com/markedjs/marked) — Markdown → HTML
-  (loaded from jsDelivr CDN in `index.html`)
-- Google Fonts: Source Sans 3, Roboto Mono
+- [`marked`](https://github.com/markedjs/marked) — Markdown to HTML (CDN)
+- Google Fonts: Barlow Condensed, Source Sans 3, Roboto Mono
 
 No build step, no package manager, no framework.
