@@ -154,23 +154,21 @@ a:hover { color: var(--color-lilac); }
   white-space: nowrap;
 }
 .logo:hover { color: var(--text-strong); }
-.logo__hash { color: #fff; }
-.logo__word {
+.logo__hash {
   background: linear-gradient(90deg, #04F1FF 0%, #753EFE 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+.logo__word { color: #fff; }
 .logo__amp {
-  color: #fff;
+  background: linear-gradient(90deg, #04F1FF 0%, #753EFE 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin: 0 2px;
 }
-.logo__accent {
-  background: linear-gradient(90deg, #04F1FF 0%, #753EFE 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+.logo__accent { color: #fff; }
 
 /* ==========================================================================
    Buttons
