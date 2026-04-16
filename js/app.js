@@ -56,8 +56,10 @@
   function highlightHeaderNav(route) {
     document.querySelectorAll('.site-nav a').forEach((a) => {
       const key = a.dataset.nav;
+      const isCurriculumRoute = flatCurriculum.some((s) => s.id === route);
       const match =
         (key === 'home' && route === '/') ||
+        (key === 'guide' && isCurriculumRoute) ||
         (key === 'contributors' && route === 'contributors');
       a.classList.toggle('is-active', !!match);
     });
@@ -234,13 +236,9 @@
     }).join('');
 
     return `
-      <aside class="curriculum" aria-label="Curriculum navigation">
+      <aside class="curriculum" aria-label="Table of Contents navigation">
         <div class="curriculum__group">
-          <h4 class="curriculum__heading">Study Tools</h4>
-          <a class="curriculum__simple" href="#/">Home</a>
-        </div>
-        <div class="curriculum__group">
-          <h4 class="curriculum__heading">Curriculum</h4>
+          <h4 class="curriculum__heading">Table of Contents</h4>
           <ul class="curriculum__items">${items}</ul>
         </div>
       </aside>
