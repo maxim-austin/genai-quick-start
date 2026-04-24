@@ -73,9 +73,35 @@
     },
     {
       "id": "evaluation-approach",
-      "title": "Evaluation Approach",
-      "file": "sections/evaluation-approach.md",
-      "description": "How to design and run evaluations for GenAI solutions — test case curation, automated benchmarks, user feedback, and regression tracking."
+      "title": "Evaluating Talk-to-your-Data AI agents",
+      "file": "sections/04-evaluation-approach.md",
+      "description": "A three-track evaluation framework for Talk-to-your-Data AI agents — offline evals, human evaluation, and online evals — resting on a shared tracing foundation.",
+      "children": [
+        {
+          "id": "evaluation-tracing",
+          "title": "Step 1 — Foundation: tracing and observability",
+          "file": "sections/04-01-tracing.md",
+          "description": "Instrument every agent request with end-to-end tracing — the canonical join key that lets automated scorers, in-product feedback, and SME labels all attach to the same artifact."
+        },
+        {
+          "id": "evaluation-offline",
+          "title": "Step 2 — Offline evals: CI/CD quality gates",
+          "file": "sections/04-02-offline-evals.md",
+          "description": "Versioned eval sets, production-mirror execution, LLM-as-judge scoring, and release gates that block regressions before they ship."
+        },
+        {
+          "id": "evaluation-human",
+          "title": "Step 3 — Human evaluation: SME annotation",
+          "file": "sections/04-03-human-evaluation.md",
+          "description": "Vibe checks, labeling campaigns on captured traces, and feeding human labels back into LLM judges to keep them aligned with business expectations."
+        },
+        {
+          "id": "evaluation-online",
+          "title": "Step 4 — Online evals: production feedback collection",
+          "file": "sections/04-04-online-evals.md",
+          "description": "In-chat feedback controls, structured trace annotations, and promoting high-signal examples back into the offline eval set."
+        }
+      ]
     }
   ]
 }

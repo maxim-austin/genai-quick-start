@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" width="680" height="420" role="img">
+  <title>Offline evals pipeline</title>
+  <desc>Four-stage offline evals pipeline: versioned eval set feeds into execution in a production-mirror environment, then LLM-as-judge scoring, then a release gate comparing scores against baseline.</desc>
+
+  <defs>
+    <style>
+      text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .t  { font-size: 14px; font-weight: 400; }
+      .ts { font-size: 12px; font-weight: 400; }
+      .th { font-size: 14px; font-weight: 500; }
+      .arr { stroke: #5dd5f5; stroke-width: 1.5; stroke-linecap: round; fill: none; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Dark navy background matching site aesthetic -->
+  <rect x="0" y="0" width="680" height="420" fill="#0a1530"/>
+
+  <!-- Trigger pill -->
+  <rect x="255" y="30" width="170" height="30" rx="15" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="340" y="45" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Code change / PR</text>
+
+  <line x1="340" y1="60" x2="340" y2="88" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ========== Stage 1: Eval set ========== -->
+  <rect x="40" y="96" width="135" height="260" rx="8" fill="#08283a" stroke="#5dd5f5" stroke-width="0.5"/>
+  <text class="th" x="107" y="118" text-anchor="middle" dominant-baseline="central" fill="#aeecf7">1. Eval set</text>
+  <text class="ts" x="107" y="136" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed">Test cases</text>
+  <line x1="52" y1="151" x2="163" y2="151" stroke="#3db8d8" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="48" y="161" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="107" y="171" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Core</text>
+  <rect x="48" y="185" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="107" y="195" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Ambiguity</text>
+  <rect x="48" y="209" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="107" y="219" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Guardrails</text>
+  <rect x="48" y="233" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="107" y="243" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Security</text>
+  <rect x="48" y="257" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="107" y="267" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Privacy</text>
+  <rect x="48" y="281" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="107" y="291" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Hallucination</text>
+  <text class="ts" x="107" y="323" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">+3 more categories</text>
+
+  <line x1="177" y1="226" x2="193" y2="226" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ========== Stage 2: Execute ========== -->
+  <rect x="195" y="96" width="135" height="260" rx="8" fill="#08283a" stroke="#5dd5f5" stroke-width="0.5"/>
+  <text class="th" x="262" y="118" text-anchor="middle" dominant-baseline="central" fill="#aeecf7">2. Execute</text>
+  <text class="ts" x="262" y="136" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed">Prod-mirror env</text>
+  <line x1="207" y1="151" x2="318" y2="151" stroke="#3db8d8" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="203" y="161" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="262" y="171" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Data snapshots</text>
+  <rect x="203" y="185" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="262" y="195" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Semantic layer</text>
+  <rect x="203" y="209" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="262" y="219" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Access roles</text>
+  <rect x="203" y="233" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="262" y="243" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Capture traces</text>
+
+  <text class="ts" x="262" y="298" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">Run agent</text>
+  <text class="ts" x="262" y="315" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">end-to-end</text>
+
+  <line x1="332" y1="226" x2="348" y2="226" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ========== Stage 3: Score ========== -->
+  <rect x="350" y="96" width="135" height="260" rx="8" fill="#08283a" stroke="#5dd5f5" stroke-width="0.5"/>
+  <text class="th" x="417" y="118" text-anchor="middle" dominant-baseline="central" fill="#aeecf7">3. Score</text>
+  <text class="ts" x="417" y="136" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed">LLM-as-judge</text>
+  <line x1="362" y1="151" x2="473" y2="151" stroke="#3db8d8" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="358" y="161" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="417" y="171" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Correctness</text>
+  <rect x="358" y="185" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="417" y="195" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Groundedness</text>
+  <rect x="358" y="209" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="417" y="219" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Relevance</text>
+  <rect x="358" y="233" width="119" height="20" rx="10" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="417" y="243" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Safety</text>
+
+  <text class="ts" x="417" y="298" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">Score + rationale</text>
+  <text class="ts" x="417" y="315" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">per trace</text>
+
+  <line x1="487" y1="226" x2="503" y2="226" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ========== Stage 4: Gate ========== -->
+  <rect x="505" y="96" width="135" height="260" rx="8" fill="#08283a" stroke="#5dd5f5" stroke-width="0.5"/>
+  <text class="th" x="572" y="118" text-anchor="middle" dominant-baseline="central" fill="#aeecf7">4. Gate</text>
+  <text class="ts" x="572" y="136" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed">vs baseline</text>
+  <line x1="517" y1="151" x2="628" y2="151" stroke="#3db8d8" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="513" y="175" width="119" height="30" rx="15" fill="#0a2f22" stroke="#4ade80" stroke-width="0.5"/>
+  <text class="th" x="572" y="190" text-anchor="middle" dominant-baseline="central" fill="#86efac">✓ Pass → ship</text>
+
+  <rect x="513" y="220" width="119" height="30" rx="15" fill="#2f0a0a" stroke="#f87171" stroke-width="0.5"/>
+  <text class="th" x="572" y="235" text-anchor="middle" dominant-baseline="central" fill="#fca5a5">✗ Fail → block</text>
+
+  <text class="ts" x="572" y="278" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">Compare scores</text>
+  <text class="ts" x="572" y="295" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed" font-style="italic">to last release</text>
+
+  <!-- Bottom caption -->
+  <text class="ts" x="340" y="388" text-anchor="middle" dominant-baseline="central" fill="#9ca3bc">Every PR runs the full pipeline — no change ships without passing the gate</text>
+</svg>

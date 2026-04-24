@@ -565,6 +565,14 @@ a:hover { color: var(--color-lilac); }
   border-radius: 0 var(--radius) var(--radius) 0;
   color: var(--text);
 }
+.article img, .article svg {
+  margin: var(--s-4) 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  max-width: 100%;
+  height: auto;
+}
 .article hr {
   border: 0;
   border-top: 1px solid var(--border);

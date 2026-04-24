@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 540" width="680" height="540" role="img">
+  <title>Evaluation framework for Talk-to-your-Data AI agents</title>
+  <desc>Three evaluation tracks — offline evals, human evaluation, and online evals — resting on a tracing and observability foundation, with a continuous improvement loop above.</desc>
+
+  <defs>
+    <style>
+      text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .t  { font-size: 14px; font-weight: 400; }
+      .ts { font-size: 12px; font-weight: 400; }
+      .th { font-size: 14px; font-weight: 500; }
+      .arr { stroke: #6a7aa0; stroke-width: 1.5; stroke-linecap: round; fill: none; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Dark navy background matching site aesthetic -->
+  <rect x="0" y="0" width="680" height="540" fill="#0a1530"/>
+
+  <!-- Continuous improvement loop -->
+  <text class="ts" x="340" y="28" text-anchor="middle" fill="#9ca3bc">Continuous improvement loop</text>
+
+  <rect x="67" y="42" width="86" height="30" rx="15" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="110" y="57" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Evaluate</text>
+  <line x1="155" y1="57" x2="179" y2="57" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="181" y="42" width="86" height="30" rx="15" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="224" y="57" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Deploy</text>
+  <line x1="269" y1="57" x2="293" y2="57" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="295" y="42" width="86" height="30" rx="15" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="338" y="57" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Monitor</text>
+  <line x1="383" y1="57" x2="407" y2="57" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="409" y="42" width="86" height="30" rx="15" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="452" y="57" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Learn</text>
+  <line x1="497" y1="57" x2="521" y2="57" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="523" y="42" width="86" height="30" rx="15" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="566" y="57" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Improve</text>
+
+  <!-- Dashed loop-return arrow -->
+  <path d="M 566 75 C 566 108 110 108 110 75" fill="none" stroke="#6a7aa0" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+
+  <!-- ========== Pillar 1: Offline evals (Cyan) — LEFT ========== -->
+  <rect x="40" y="140" width="190" height="280" rx="6" fill="#08283a" stroke="#5dd5f5" stroke-width="0.5"/>
+  <text class="th" x="135" y="172" text-anchor="middle" dominant-baseline="central" fill="#aeecf7">Offline evals</text>
+  <text class="ts" x="135" y="193" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed">CI/CD quality gates</text>
+  <line x1="58" y1="212" x2="212" y2="212" stroke="#5dd5f5" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="51" y="226" width="168" height="40" rx="6" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="135" y="246" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Eval set</text>
+  <rect x="51" y="274" width="168" height="40" rx="6" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="135" y="294" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">LLM-as-judge</text>
+  <rect x="51" y="322" width="168" height="40" rx="6" fill="#051828" stroke="#3db8d8" stroke-width="0.5"/>
+  <text class="t" x="135" y="342" text-anchor="middle" dominant-baseline="central" fill="#e0f5fa">Release gates</text>
+
+  <text class="ts" x="135" y="400" text-anchor="middle" dominant-baseline="central" fill="#7ed8ed">Regression-proof releases</text>
+
+  <!-- ========== Pillar 2: Human evaluation (Pink/Magenta) — MIDDLE (swapped from right) ========== -->
+  <rect x="245" y="140" width="190" height="280" rx="6" fill="#2d1040" stroke="#e57ac9" stroke-width="0.5"/>
+  <text class="th" x="340" y="172" text-anchor="middle" dominant-baseline="central" fill="#f5c3e0">Human evaluation</text>
+  <text class="ts" x="340" y="193" text-anchor="middle" dominant-baseline="central" fill="#e57ac9">Domain expert alignment</text>
+  <line x1="263" y1="212" x2="417" y2="212" stroke="#e57ac9" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="256" y="226" width="168" height="40" rx="6" fill="#1a0822" stroke="#c863a8" stroke-width="0.5"/>
+  <text class="t" x="340" y="246" text-anchor="middle" dominant-baseline="central" fill="#fce7f5">Vibe checks</text>
+  <rect x="256" y="274" width="168" height="40" rx="6" fill="#1a0822" stroke="#c863a8" stroke-width="0.5"/>
+  <text class="t" x="340" y="294" text-anchor="middle" dominant-baseline="central" fill="#fce7f5">Labeling campaigns</text>
+  <rect x="256" y="322" width="168" height="40" rx="6" fill="#1a0822" stroke="#c863a8" stroke-width="0.5"/>
+  <text class="t" x="340" y="342" text-anchor="middle" dominant-baseline="central" fill="#fce7f5">Judge calibration</text>
+
+  <text class="ts" x="340" y="400" text-anchor="middle" dominant-baseline="central" fill="#e57ac9">Human-anchored truth</text>
+
+  <!-- ========== Pillar 3: Online evals (Purple) — RIGHT (swapped from middle) ========== -->
+  <rect x="450" y="140" width="190" height="280" rx="6" fill="#1a1040" stroke="#8b5cf6" stroke-width="0.5"/>
+  <text class="th" x="545" y="172" text-anchor="middle" dominant-baseline="central" fill="#c4b6f0">Online evals</text>
+  <text class="ts" x="545" y="193" text-anchor="middle" dominant-baseline="central" fill="#a58deb">In-product signal</text>
+  <line x1="468" y1="212" x2="622" y2="212" stroke="#8b5cf6" stroke-width="0.5" opacity="0.4"/>
+
+  <rect x="461" y="226" width="168" height="40" rx="6" fill="#0d0820" stroke="#6b4cc9" stroke-width="0.5"/>
+  <text class="t" x="545" y="246" text-anchor="middle" dominant-baseline="central" fill="#e8e0fa">In-chat labels</text>
+  <rect x="461" y="274" width="168" height="40" rx="6" fill="#0d0820" stroke="#6b4cc9" stroke-width="0.5"/>
+  <text class="t" x="545" y="294" text-anchor="middle" dominant-baseline="central" fill="#e8e0fa">Trace annotations</text>
+  <rect x="461" y="322" width="168" height="40" rx="6" fill="#0d0820" stroke="#6b4cc9" stroke-width="0.5"/>
+  <text class="t" x="545" y="342" text-anchor="middle" dominant-baseline="central" fill="#e8e0fa">Promote to evals</text>
+
+  <text class="ts" x="545" y="400" text-anchor="middle" dominant-baseline="central" fill="#a58deb">Real-world coverage</text>
+
+  <!-- ========== Foundation ========== -->
+  <rect x="40" y="436" width="600" height="88" rx="8" fill="#1a2540" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="th" x="340" y="460" text-anchor="middle" dominant-baseline="central" fill="#e0e6f0">Foundation — tracing and observability</text>
+  <text class="ts" x="340" y="481" text-anchor="middle" dominant-baseline="central" fill="#9ca3bc">Every interaction captured as an end-to-end trace, the join key for all evaluation</text>
+
+  <rect x="55" y="498" width="86" height="18" rx="9" fill="#0d1a2f" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="ts" x="98" y="508" text-anchor="middle" dominant-baseline="central" fill="#b0b8cc">User input</text>
+
+  <rect x="166" y="498" width="110" height="18" rx="9" fill="#0d1a2f" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="ts" x="221" y="508" text-anchor="middle" dominant-baseline="central" fill="#b0b8cc">Tool execution</text>
+
+  <rect x="301" y="498" width="82" height="18" rx="9" fill="#0d1a2f" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="ts" x="342" y="508" text-anchor="middle" dominant-baseline="central" fill="#b0b8cc">LLM calls</text>
+
+  <rect x="408" y="498" width="62" height="18" rx="9" fill="#0d1a2f" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="ts" x="439" y="508" text-anchor="middle" dominant-baseline="central" fill="#b0b8cc">Output</text>
+
+  <rect x="495" y="498" width="140" height="18" rx="9" fill="#0d1a2f" stroke="#4a5a80" stroke-width="0.5"/>
+  <text class="ts" x="565" y="508" text-anchor="middle" dominant-baseline="central" fill="#b0b8cc">Operational metadata</text>
+</svg>
