@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-04-24
+
+<!-- last-commit: 9ef48565 -->
+
+Replaced the Evaluation Approach placeholder with a full "Evaluating Talk-to-your-Data AI agents" section — intro plus four step-by-step subsections — and introduced a convention for embedding diagrams in guide content.
+
+### Content
+
+- Renamed the "Evaluation Approach" top-level section to **"Evaluating Talk-to-your-Data AI agents"** and expanded its intro with expectation-setting guidance and a three-track framework overview.
+- Added four step-by-step child sections covering the full evaluation lifecycle:
+  1. **Step 1 — Foundation: tracing and observability**
+  2. **Step 2 — Offline evals: CI/CD quality gates** (with pipeline diagram)
+  3. **Step 3 — Human evaluation: SME annotation**
+  4. **Step 4 — Online evals: production feedback collection** — now also contains the "Closing the loop" wrap-up on how the three tracks compound
+
+### Features
+
+- Embedded SVG diagrams now render inside article content with vertical spacing, rounded corners, and a subtle border.
+
+### Docs / Meta
+
+- Added `content/images/` folder as the canonical location for guide diagrams; referenced from Markdown as `content/images/<file>.svg`.
+- Added a CHANGELOG.md and published it alongside the project.
+
 ## 2026-04-16
 
 <!-- last-commit: 0d6b9186e8444698247270bfd29878f26de9f9c2 -->

@@ -40,3 +40,4 @@ All content changes go through `manifest.json` — see README.md for the full gu
 - Manifest `id` values are kebab-case and must be unique across all entries (they become URL hash fragments).
 - No footer — removed by design.
 - Sidebar heading reads "Table of Contents", not "Curriculum".
+- Diagrams and images live in `content/images/` and are referenced from Markdown as `content/images/<file>.svg` (path is relative to the site root, not to the section file).

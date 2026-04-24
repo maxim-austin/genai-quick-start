@@ -122,6 +122,16 @@ Add to the `home.blocks` array — content is inlined on the home page:
 }
 ```
 
+### Adding images or diagrams
+
+Drop image files (SVG, PNG, etc.) into `content/images/` and reference them from Markdown with a path relative to the site root:
+
+```markdown
+![Alt text describing the diagram](content/images/my-diagram.svg)
+```
+
+Article images automatically get a rounded border and vertical spacing from `.article img, .article svg` in `css/styles.css`.
+
 ### Manifest field reference
 
 | Field | Required | Description |
