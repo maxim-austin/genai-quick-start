@@ -26,6 +26,17 @@
       "file": "sections/contributors.md"
     }
   ],
+  "articles": [
+    {
+      "id": "next-gen-data-ai-native-teams",
+      "title": "Next-Gen Data AI-Native Teams",
+      "subtitle": "Why Team Composition Must Change in the Era of GenAI",
+      "author": "Max Krupenin",
+      "date": "2026-05-26",
+      "lede": "Forward-Deployed Engineers are rare unicorns. A compact, collaborative AI-native team — Product Manager, Solution Architect, AI Engineer, AI QA Engineer, and a \"Junior\" AI Engineer — is a more realistic and scalable model.",
+      "file": "sections/articles/next-gen-data-ai-native-teams.md"
+    }
+  ],
   "curriculum": [
     {
       "id": "key-principles",
