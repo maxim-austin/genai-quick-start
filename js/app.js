@@ -6,6 +6,8 @@
      #<home-anchor>            → home, smooth-scroll to that block
      #<standalone-page>        → standalone page (e.g. contributors)
      #<curriculum-section>     → reader view with collapsible left sidebar
+     #articles                 → articles index (list of articles)
+     #articles/<id>            → individual article
    ========================================================================== */
 
 (() => {
@@ -18,6 +20,8 @@
   let homeAnchorIds = [];
   /** Map of standalone page id → page meta. */
   let standalonePages = {};
+  /** Map of article id → article meta. */
+  let articlesById = {};
   /** Top-level curriculum ids the user has manually toggled expand/collapse on. */
   const toggleOverrides = new Map();
 
@@ -57,9 +61,11 @@
     document.querySelectorAll('.site-nav a').forEach((a) => {
       const key = a.dataset.nav;
       const isCurriculumRoute = flatCurriculum.some((s) => s.id === route);
+      const isArticlesRoute = route === 'articles' || (typeof route === 'string' && route.startsWith('articles/'));
       const match =
         (key === 'home' && route === '/') ||
         (key === 'guide' && isCurriculumRoute) ||
+        (key === 'articles' && isArticlesRoute) ||
         (key === 'contributors' && route === 'contributors');
       a.classList.toggle('is-active', !!match);
     });
@@ -370,11 +376,131 @@
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
+  // ---------- ARTICLES INDEX ----------
+
+  function formatArticleDate(iso) {
+    if (!iso) return '';
+    // Parse YYYY-MM-DD as a local date to avoid UTC→local off-by-one.
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    const d = m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function renderArticlesIndex() {
+    const articles = manifest.articles || [];
+    const cardsHtml = articles.map((a) => `
+      <a class="article-card" href="#articles/${escapeHtml(a.id)}">
+        <span class="article-card__meta">
+          ${a.author ? `<span class="article-card__author">${escapeHtml(a.author)}</span>` : ''}
+          ${a.date ? `<span class="article-card__date">${escapeHtml(formatArticleDate(a.date))}</span>` : ''}
+        </span>
+        <h3 class="article-card__title">${escapeHtml(a.title)}</h3>
+        ${a.subtitle ? `<p class="article-card__subtitle">${escapeHtml(a.subtitle)}</p>` : ''}
+        ${a.lede ? `<p class="article-card__lede">${escapeHtml(a.lede)}</p>` : ''}
+        <span class="article-card__cta">Read article →</span>
+      </a>
+    `).join('');
+
+    viewEl.innerHTML = `
+      <div class="wrap section-view">
+        <article class="article article--standalone">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="#/">Home</a>
+            <span class="breadcrumb__sep">/</span>
+            <span>Articles</span>
+          </nav>
+          <h1>Articles</h1>
+          <p class="hero__lede" style="margin-top:-4px;">Opinion pieces and field notes from contributors. Personal perspectives, not official positions.</p>
+          ${articles.length
+            ? `<div class="article-grid">${cardsHtml}</div>`
+            : `<p>No articles yet. Check back soon.</p>`
+          }
+        </article>
+      </div>
+    `;
+
+    highlightHeaderNav('articles');
+    document.title = `Articles — ${manifest.title}`;
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  // ---------- INDIVIDUAL ARTICLE ----------
+
+  async function renderArticle(id) {
+    const article = articlesById[id];
+    if (!article) {
+      renderArticlesIndex();
+      return;
+    }
+
+    viewEl.innerHTML = `
+      <div class="wrap section-view">
+        <div class="skeleton">
+          <div class="skeleton__line skeleton__line--title"></div>
+          <div class="skeleton__line"></div>
+          <div class="skeleton__line"></div>
+          <div class="skeleton__line skeleton__line--short"></div>
+        </div>
+      </div>
+    `;
+
+    try {
+      const md = await loadMarkdown(article.file);
+      const html = marked.parse(md, { mangle: false, headerIds: false });
+
+      const metaBits = [];
+      if (article.author) metaBits.push(`<span class="article-meta__author">${escapeHtml(article.author)}</span>`);
+      if (article.date) metaBits.push(`<span class="article-meta__date">${escapeHtml(formatArticleDate(article.date))}</span>`);
+      const metaHtml = metaBits.length ? `<p class="article-meta">${metaBits.join('<span class="article-meta__sep">·</span>')}</p>` : '';
+
+      viewEl.innerHTML = `
+        <div class="wrap section-view">
+          <article class="article article--standalone article--longform">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="#/">Home</a>
+              <span class="breadcrumb__sep">/</span>
+              <a href="#articles">Articles</a>
+              <span class="breadcrumb__sep">/</span>
+              <span>${escapeHtml(article.title)}</span>
+            </nav>
+            ${metaHtml}
+            <div class="article__body">${html}</div>
+            <div class="article-footer">
+              <a class="btn btn--ghost btn--sm" href="#articles">← All articles</a>
+            </div>
+          </article>
+        </div>
+      `;
+    } catch (err) {
+      viewEl.innerHTML = `
+        <div class="wrap section-view">
+          <article class="article">
+            <h1>Unable to load article</h1>
+            <p>${escapeHtml(err.message)}</p>
+            <p><a href="#articles">← All articles</a></p>
+          </article>
+        </div>
+      `;
+    }
+
+    highlightHeaderNav('articles/' + id);
+    document.title = `${article.title} — ${manifest.title}`;
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
   // ---------- Routing ----------
 
   function currentRoute() {
     const hash = window.location.hash.replace(/^#/, '').trim();
     if (!hash || hash === '/' || hash === '') return { kind: 'home' };
+
+    if (hash === 'articles') return { kind: 'articles-index' };
+    if (hash.startsWith('articles/')) {
+      const id = hash.slice('articles/'.length);
+      if (articlesById[id]) return { kind: 'article', id };
+      return { kind: 'articles-index' };
+    }
 
     if (homeAnchorIds.includes(hash)) return { kind: 'home', scrollTo: hash };
     if (standalonePages[hash]) return { kind: 'page', id: hash };
@@ -387,6 +513,8 @@
     const route = currentRoute();
     if (route.kind === 'home') renderHome(route.scrollTo);
     else if (route.kind === 'page') renderStandalonePage(route.id);
+    else if (route.kind === 'articles-index') renderArticlesIndex();
+    else if (route.kind === 'article') renderArticle(route.id);
     else renderSection(route.id);
   }
 
@@ -412,6 +540,7 @@
     flatCurriculum = flatten(manifest.curriculum || []);
     homeAnchorIds = ((manifest.home && manifest.home.blocks) || []).map((b) => b.id);
     standalonePages = Object.fromEntries((manifest.pages || []).map((p) => [p.id, p]));
+    articlesById = Object.fromEntries((manifest.articles || []).map((a) => [a.id, a]));
 
     handleRoute();
     window.addEventListener('hashchange', handleRoute);
