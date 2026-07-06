@@ -798,6 +798,98 @@ a:hover { color: var(--color-lilac); }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
 /* ==========================================================================
+   Image lightbox (click a content image to view it full screen)
+   ========================================================================== */
+.article__body img,
+.home-block__body img { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-4);
+  background: rgba(1, 8, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: lightbox-in .18s ease;
+}
+.lightbox[hidden] { display: none; }
+@keyframes lightbox-in { from { opacity: 0; } to { opacity: 1; } }
+
+.lightbox__figure {
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+}
+.lightbox__img {
+  max-width: 95vw;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  cursor: zoom-in;
+}
+.lightbox__caption {
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 80ch;
+}
+
+/* Zoomed = actual size; overlay scrolls so wide diagrams stay readable. */
+.lightbox.is-zoomed {
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: auto;
+}
+.lightbox.is-zoomed .lightbox__figure { max-width: none; max-height: none; }
+.lightbox.is-zoomed .lightbox__img {
+  max-width: none;
+  max-height: none;
+  cursor: zoom-out;
+}
+.lightbox.is-zoomed .lightbox__caption { display: none; }
+
+.lightbox__close {
+  position: fixed;
+  top: var(--s-3);
+  right: var(--s-3);
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--text-strong);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--color-cyan);
+}
+
+body.has-lightbox { overflow: hidden; }
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width: 960px) {

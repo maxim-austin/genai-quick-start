@@ -1,0 +1,457 @@
+<svg viewBox="0 0 1680 1030" width="1680" height="1030" xmlns="http://www.w3.org/2000/svg" font-family="'DM Sans', 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif">
+  <title>Next-gen AI data factory – Horizon 3 blueprint v12</title>
+  <defs>
+    <linearGradient id="ctxGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4F46E5"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1680" height="1030" fill="#F7F8FC"/>
+
+  <!-- ═══════════ left rail: platform capabilities (painted first) ═══════════ -->
+  <rect x="40" y="172" width="150" height="822" rx="14" fill="#F4F5FB" stroke="#DCDFEE"/>
+  <circle cx="115" cy="208" r="16" fill="#FFFFFF"/>
+  <g transform="translate(115,208)" stroke="#5A6089" stroke-width="1.8" fill="none">
+    <circle r="4.2"/>
+    <g stroke-linecap="round">
+      <line x1="0" y1="-6" x2="0" y2="-8.5"/><line x1="0" y1="6" x2="0" y2="8.5"/>
+      <line x1="-6" y1="0" x2="-8.5" y2="0"/><line x1="6" y1="0" x2="8.5" y2="0"/>
+      <line x1="-4.3" y1="-4.3" x2="-6" y2="-6"/><line x1="4.3" y1="4.3" x2="6" y2="6"/>
+      <line x1="-4.3" y1="4.3" x2="-6" y2="6"/><line x1="4.3" y1="-4.3" x2="6" y2="-6"/>
+    </g>
+  </g>
+  <text x="115" y="240" font-size="11.5" font-weight="700" letter-spacing="1.3" fill="#5A6089" text-anchor="middle">PLATFORM</text>
+  <text x="115" y="256" font-size="11.5" font-weight="700" letter-spacing="1.3" fill="#5A6089" text-anchor="middle">CAPABILITIES</text>
+  <text x="115" y="273" font-size="11" fill="#8A90AC" text-anchor="middle">the data plane</text>
+  <text x="115" y="292" font-size="11.5" font-weight="700" fill="#4F46E5" text-anchor="middle">built &amp; run by agents</text>
+  <g font-size="11.5" fill="#454B66">
+    <rect x="56" y="306" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="325.5" text-anchor="middle">ingestion</text>
+    <rect x="56" y="346" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="365.5" text-anchor="middle">transformation</text>
+    <rect x="56" y="386" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="405.5" text-anchor="middle">streaming</text>
+    <rect x="56" y="426" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="445.5" text-anchor="middle">modeling</text>
+    <rect x="56" y="466" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="485.5" text-anchor="middle">data quality</text>
+    <rect x="56" y="506" width="118" height="42" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="523" text-anchor="middle">master data</text>
+    <text x="115" y="539" text-anchor="middle">management</text>
+    <rect x="56" y="558" width="118" height="42" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="575" text-anchor="middle">knowledge</text>
+    <text x="115" y="591" text-anchor="middle">management</text>
+    <rect x="56" y="610" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="629.5" text-anchor="middle">orchestration</text>
+    <rect x="56" y="650" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="669.5" text-anchor="middle">storage</text>
+    <rect x="56" y="690" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="709.5" text-anchor="middle">data sharing</text>
+    <rect x="56" y="730" width="118" height="42" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="747" text-anchor="middle">pixel perfect</text>
+    <text x="115" y="763" text-anchor="middle">reporting</text>
+    <rect x="56" y="782" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="801.5" text-anchor="middle">observability</text>
+    <rect x="56" y="822" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="841.5" text-anchor="middle">ML &amp; AI ops</text>
+    <rect x="56" y="862" width="118" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="115" y="881.5" text-anchor="middle">DataOps</text>
+  </g>
+  <text x="115" y="930" font-size="11" fill="#8A90AC" text-anchor="middle">same machinery –</text>
+  <text x="115" y="947" font-size="11" fill="#8A90AC" text-anchor="middle">no human hands</text>
+  <text x="115" y="964" font-size="11" fill="#8A90AC" text-anchor="middle">build it</text>
+
+  <!-- ═══════════ right rail: governance (painted early) ═══════════ -->
+  <rect x="1394" y="172" width="246" height="822" rx="14" fill="#F1F2F9" stroke="#D8DBEA"/>
+  <circle cx="1517" cy="208" r="16" fill="#FFFFFF"/>
+  <g transform="translate(1517,208)">
+    <path d="M0,-8.5 L7,-5.5 V-0.5 C7,4.5 3.8,7.8 0,9 C-3.8,7.8 -7,4.5 -7,-0.5 V-5.5 Z" fill="#7E22CE"/>
+    <path d="M -3 0 L -0.8 2.4 L 3.4 -2.6" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="1517" y="242" font-size="11.5" font-weight="700" letter-spacing="1.3" fill="#5A6089" text-anchor="middle">GOVERNANCE</text>
+  <text x="1517" y="260" font-size="11" fill="#8A90AC" text-anchor="middle">autonomy demands more</text>
+  <text x="1517" y="275" font-size="11" fill="#8A90AC" text-anchor="middle">governance – not less</text>
+
+  <!-- certification gate -->
+  <rect x="1406" y="292" width="222" height="144" rx="12" fill="#FFFBF2" stroke="#F59E0B" stroke-width="1.4"/>
+  <circle cx="1432" cy="322" r="14" fill="#FEF3C7"/>
+  <path d="M 1425.5 322 L 1430.5 327 L 1438.5 318" fill="none" stroke="#B45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1456" y="318" font-size="14" font-weight="700" fill="#1B2140">Certification gate</text>
+  <text x="1456" y="336" font-size="11" font-weight="600" fill="#B45309">where trust is enforced</text>
+  <g font-size="11" fill="#565C7E">
+    <text x="1418" y="362">approves or rejects what agents</text>
+    <text x="1418" y="378">propose – data products, context</text>
+    <text x="1418" y="394">updates, pipelines &amp; tooling</text>
+  </g>
+  <text x="1418" y="418" font-size="10" font-weight="700" fill="#B45309">risk-tiered – low-risk auto-certifies</text>
+
+  <!-- AI governance capabilities -->
+  <text x="1408" y="712" font-size="10" font-weight="700" letter-spacing="1.2" fill="#7C3AED">AI GOVERNANCE</text>
+  <g font-size="11" fill="#454B66">
+    <rect x="1406" y="722" width="108" height="28" rx="14" fill="#FFFFFF" stroke="#C4B5FD"/>
+    <text x="1460" y="740" text-anchor="middle">agent identity</text>
+    <rect x="1524" y="722" width="104" height="28" rx="14" fill="#FFFFFF" stroke="#C4B5FD"/>
+    <text x="1576" y="740" text-anchor="middle">tool permissions</text>
+    <rect x="1406" y="760" width="108" height="28" rx="14" fill="#FFFFFF" stroke="#C4B5FD"/>
+    <text x="1460" y="778" text-anchor="middle">model risk</text>
+    <rect x="1524" y="760" width="104" height="28" rx="14" fill="#FFFFFF" stroke="#C4B5FD"/>
+    <text x="1576" y="778" text-anchor="middle">eval standards</text>
+    <rect x="1406" y="798" width="108" height="28" rx="14" fill="#FFFFFF" stroke="#C4B5FD"/>
+    <text x="1460" y="816" text-anchor="middle">cost guardrails</text>
+    <rect x="1524" y="798" width="104" height="28" rx="14" fill="#FFFFFF" stroke="#C4B5FD"/>
+    <text x="1576" y="816" text-anchor="middle">kill switches</text>
+  </g>
+
+  <!-- data governance capabilities -->
+  <text x="1408" y="858" font-size="10" font-weight="700" letter-spacing="1.2" fill="#5A6089">DATA GOVERNANCE</text>
+  <g font-size="11" fill="#454B66">
+    <rect x="1406" y="868" width="108" height="28" rx="14" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1460" y="886" text-anchor="middle">security</text>
+    <rect x="1524" y="868" width="104" height="28" rx="14" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1576" y="886" text-anchor="middle">access control</text>
+    <rect x="1406" y="906" width="108" height="28" rx="14" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1460" y="924" text-anchor="middle">privacy</text>
+    <rect x="1524" y="906" width="104" height="28" rx="14" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1576" y="924" text-anchor="middle">compliance</text>
+    <rect x="1406" y="944" width="108" height="28" rx="14" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1460" y="962" text-anchor="middle">data policies</text>
+    <rect x="1524" y="944" width="104" height="28" rx="14" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1576" y="962" text-anchor="middle">audit trail</text>
+  </g>
+
+  <!-- ═══════════ humans – consumption &amp; authority ═══════════ -->
+  <rect x="226" y="36" width="1414" height="108" rx="16" fill="#FFFBF0" stroke="#EFE0BE"/>
+  <text x="252" y="64" font-size="12.5" font-weight="700" letter-spacing="1.5" fill="#B45309">HUMANS – ULTIMATE CONSUMERS · ULTIMATE AUTHORITY</text>
+
+  <rect x="250" y="76" width="430" height="56" rx="12" fill="#FFFFFF" stroke="#F0E4C8"/>
+  <g fill="#D97706">
+    <circle cx="280" cy="97" r="5"/>
+    <path d="M270,114 a10,8.5 0 0 1 20,0 z"/>
+  </g>
+  <text x="302" y="100" font-size="15" font-weight="700" fill="#1B2140">Business users</text>
+  <text x="302" y="120" font-size="11.5" fill="#6A7090">ask in plain language · get grounded, cited answers</text>
+
+  <text x="815" y="96" font-size="12" fill="#A16207" text-anchor="middle">humans no longer build the platform –</text>
+  <text x="815" y="114" font-size="12" fill="#A16207" text-anchor="middle">they direct it, consume it, certify it</text>
+
+  <rect x="950" y="76" width="450" height="56" rx="12" fill="#FFFFFF" stroke="#F0E4C8"/>
+  <g fill="#D97706">
+    <circle cx="980" cy="97" r="5"/>
+    <path d="M970,114 a10,8.5 0 0 1 20,0 z"/>
+  </g>
+  <text x="1002" y="100" font-size="15" font-weight="700" fill="#1B2140">Platform team</text>
+  <text x="1002" y="120" font-size="11.5" fill="#6A7090">direct the fleet · pair with agents · certify what they propose</text>
+
+  <!-- ═══════════ agentic infrastructure ═══════════ -->
+  <rect x="226" y="172" width="1132" height="290" rx="16" fill="#FFFFFF" stroke="#E1E4F0"/>
+  <circle cx="256" cy="204" r="13" fill="#EDEFFE"/>
+  <g transform="translate(256,204)">
+    <rect x="-6" y="-6" width="12" height="12" rx="2.4" fill="none" stroke="#4F46E5" stroke-width="1.5"/>
+    <text x="0" y="2.6" font-size="7" font-weight="800" fill="#4F46E5" text-anchor="middle">AI</text>
+    <g stroke="#4F46E5" stroke-width="1.2" stroke-linecap="round">
+      <line x1="-2.8" y1="-6" x2="-2.8" y2="-8.8"/><line x1="2.8" y1="-6" x2="2.8" y2="-8.8"/>
+      <line x1="-2.8" y1="6" x2="-2.8" y2="8.8"/><line x1="2.8" y1="6" x2="2.8" y2="8.8"/>
+      <line x1="-6" y1="-2.8" x2="-8.8" y2="-2.8"/><line x1="-6" y1="2.8" x2="-8.8" y2="2.8"/>
+      <line x1="6" y1="-2.8" x2="8.8" y2="-2.8"/><line x1="6" y1="2.8" x2="8.8" y2="2.8"/>
+    </g>
+  </g>
+  <text x="282" y="209" font-size="12.5" font-weight="700" letter-spacing="1.5" fill="#4F46E5">AGENTIC INFRASTRUCTURE – THE CONTROL PLANE · HOSTING · ORCHESTRATION · IDENTITY</text>
+
+  <circle cx="318" cy="318" r="72" fill="none" stroke="#D8DCF0" stroke-dasharray="4 4"/>
+  <circle cx="318" cy="318" r="58" fill="#F7F8FD" stroke="#C6CBE8" stroke-width="1.4"/>
+  <path transform="translate(318,284) scale(0.75)" d="M0,-9 L2.2,-2.2 L9,0 L2.2,2.2 L0,9 L-2.2,2.2 L-9,0 L-2.2,-2.2 Z" fill="#4F46E5"/>
+  <text x="318" y="310" font-size="14" font-weight="700" fill="#1B2140" text-anchor="middle">Foundation</text>
+  <text x="318" y="327" font-size="14" font-weight="700" fill="#1B2140" text-anchor="middle">Models</text>
+  <text x="318" y="346" font-size="11" fill="#6A7090" text-anchor="middle">reasoning core</text>
+  <text x="318" y="410" font-size="11" fill="#8A90AC" text-anchor="middle">frontier or open – swappable</text>
+  <line x1="378" y1="294" x2="416" y2="278" stroke="#D8DCF0" stroke-width="1.2"/>
+  <line x1="376" y1="362" x2="416" y2="394" stroke="#D8DCF0" stroke-width="1.2"/>
+
+  <rect x="416" y="226" width="456" height="112" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+  <text x="440" y="258" font-size="16" font-weight="700" fill="#1B2140">Interactive agents</text>
+  <circle cx="840" cy="252" r="14" fill="#DCE6FC"/>
+  <g transform="translate(840,252)">
+    <rect x="-6" y="-6" width="12" height="12" rx="2.4" fill="none" stroke="#2F4FD0" stroke-width="1.5"/>
+    <text x="0" y="2.6" font-size="7" font-weight="800" fill="#2F4FD0" text-anchor="middle">AI</text>
+    <g stroke="#2F4FD0" stroke-width="1.2" stroke-linecap="round">
+      <line x1="-2.8" y1="-6" x2="-2.8" y2="-8.8"/><line x1="2.8" y1="-6" x2="2.8" y2="-8.8"/>
+      <line x1="-2.8" y1="6" x2="-2.8" y2="8.8"/><line x1="2.8" y1="6" x2="2.8" y2="8.8"/>
+      <line x1="-6" y1="-2.8" x2="-8.8" y2="-2.8"/><line x1="-6" y1="2.8" x2="-8.8" y2="2.8"/>
+      <line x1="6" y1="-2.8" x2="8.8" y2="-2.8"/><line x1="6" y1="2.8" x2="8.8" y2="2.8"/>
+    </g>
+  </g>
+  <text x="440" y="282" font-size="12.5" fill="#6A7090">converse with users · pair with the platform team on demand</text>
+  <g font-size="12.5" fill="#454B66">
+    <rect x="440" y="296" width="164" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="522" y="315.5" text-anchor="middle">conversational agents</text>
+    <rect x="616" y="296" width="104" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="668" y="315.5" text-anchor="middle">coding agents</text>
+    <rect x="732" y="296" width="112" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="788" y="315.5" text-anchor="middle">analyst agents</text>
+  </g>
+
+  <rect x="896" y="226" width="456" height="112" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+  <text x="920" y="258" font-size="16" font-weight="700" fill="#1B2140">Autonomous agents</text>
+  <circle cx="1320" cy="252" r="14" fill="#E4E6FC"/>
+  <g transform="translate(1320,252)">
+    <rect x="-6" y="-6" width="12" height="12" rx="2.4" fill="none" stroke="#4F46E5" stroke-width="1.5"/>
+    <text x="0" y="2.6" font-size="7" font-weight="800" fill="#4F46E5" text-anchor="middle">AI</text>
+    <g stroke="#4F46E5" stroke-width="1.2" stroke-linecap="round">
+      <line x1="-2.8" y1="-6" x2="-2.8" y2="-8.8"/><line x1="2.8" y1="-6" x2="2.8" y2="-8.8"/>
+      <line x1="-2.8" y1="6" x2="-2.8" y2="8.8"/><line x1="2.8" y1="6" x2="2.8" y2="8.8"/>
+      <line x1="-6" y1="-2.8" x2="-8.8" y2="-2.8"/><line x1="-6" y1="2.8" x2="-8.8" y2="2.8"/>
+      <line x1="6" y1="-2.8" x2="8.8" y2="-2.8"/><line x1="6" y1="2.8" x2="8.8" y2="2.8"/>
+    </g>
+  </g>
+  <text x="920" y="282" font-size="12.5" fill="#6A7090">run continuously – evolve, maintain, heal the platform</text>
+  <g font-size="12.5" fill="#454B66">
+    <rect x="920" y="296" width="124" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="982" y="315.5" text-anchor="middle">self-healing ops</text>
+    <rect x="1056" y="296" width="130" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1121" y="315.5" text-anchor="middle">quality watchdogs</text>
+    <rect x="1198" y="296" width="124" height="30" rx="15" fill="#FFFFFF" stroke="#DDE1F0"/>
+    <text x="1260" y="315.5" text-anchor="middle">context curators</text>
+  </g>
+
+  <polygon points="560.5,351 569.5,351 565,344" fill="#4F46E5"/>
+  <line x1="565" y1="351" x2="565" y2="368" stroke="#4F46E5" stroke-width="1.6"/>
+  <polygon points="560.5,368 569.5,368 565,376" fill="#4F46E5"/>
+  <polygon points="1200.5,351 1209.5,351 1205,344" fill="#4F46E5"/>
+  <line x1="1205" y1="351" x2="1205" y2="368" stroke="#4F46E5" stroke-width="1.6"/>
+  <polygon points="1200.5,368 1209.5,368 1205,376" fill="#4F46E5"/>
+  <text x="885" y="364" font-size="12.5" font-weight="700" fill="#4F46E5" text-anchor="middle">agents run on the tooling – and generate &amp; maintain it themselves</text>
+
+  <rect x="416" y="376" width="932" height="66" rx="12" fill="#EDEFFE" stroke="#CFD2F8"/>
+  <circle cx="444" cy="409" r="15" fill="#FFFFFF"/>
+  <g transform="translate(444,410)">
+    <rect x="-7.5" y="-2.6" width="15" height="9.6" rx="1.9" fill="#4F46E5"/>
+    <path d="M -3.2 -2.6 v -2 a 3.2 3.2 0 0 1 6.4 0 v 2" fill="none" stroke="#4F46E5" stroke-width="1.8"/>
+  </g>
+  <text x="468" y="404" font-size="15.5" font-weight="700" fill="#1B2140">AI tooling</text>
+  <text x="468" y="424" font-size="11.5" fill="#565C7E">the fleet's supply chain</text>
+  <g font-size="12.5" fill="#454B66">
+    <rect x="626" y="394" width="106" height="30" rx="15" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="679" y="413.5" text-anchor="middle">MCP servers</text>
+    <rect x="744" y="394" width="60" height="30" rx="15" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="774" y="413.5" text-anchor="middle">tools</text>
+    <rect x="816" y="394" width="64" height="30" rx="15" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="848" y="413.5" text-anchor="middle">skills</text>
+    <rect x="892" y="394" width="116" height="30" rx="15" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="950" y="413.5" text-anchor="middle">agent harness</text>
+    <rect x="1020" y="394" width="92" height="30" rx="15" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="1066" y="413.5" text-anchor="middle">templates</text>
+    <rect x="1124" y="394" width="62" height="30" rx="15" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="1155" y="413.5" text-anchor="middle">evals</text>
+  </g>
+  <text x="1330" y="402" font-size="11" font-weight="600" fill="#4F46E5" text-anchor="end">built by agents,</text>
+  <text x="1330" y="418" font-size="11" font-weight="600" fill="#4F46E5" text-anchor="end">for agents</text>
+
+  <!-- ═══════════ enterprise context layer ═══════════ -->
+  <rect x="226" y="494" width="1414" height="126" rx="16" fill="url(#ctxGrad)"/>
+  <text x="252" y="522" font-size="12.5" font-weight="700" letter-spacing="1.8" fill="#FFFFFF" opacity="0.95">ENTERPRISE CONTEXT LAYER – SHARED MEANING FOR EVERY ANSWER</text>
+  <g font-size="13.5" fill="#FFFFFF">
+    <rect x="374" y="537" width="80" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="414" y="558" text-anchor="middle">Ontology</text>
+    <rect x="466" y="537" width="132" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="532" y="558" text-anchor="middle">Knowledge graph</text>
+    <rect x="610" y="537" width="124" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="672" y="558" text-anchor="middle">Semantic layer</text>
+    <rect x="746" y="537" width="146" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="819" y="558" text-anchor="middle">Business glossary</text>
+    <rect x="904" y="537" width="132" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="970" y="558" text-anchor="middle">Verified queries</text>
+    <rect x="1048" y="537" width="74" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="1085" y="558" text-anchor="middle">Lineage</text>
+    <rect x="1134" y="537" width="132" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="1200" y="558" text-anchor="middle">System metadata</text>
+    <rect x="312" y="577" width="124" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="374" y="598" text-anchor="middle">Policy context</text>
+    <rect x="448" y="577" width="212" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.45"/>
+    <text x="554" y="598" text-anchor="middle">User profiles &amp; preferences</text>
+  </g>
+  <text x="892" y="598" font-size="12" fill="#FFFFFF" opacity="0.85" text-anchor="middle">maps every question – and every concept – to the right product</text>
+  <rect x="1124" y="577" width="204" height="32" rx="16" fill="#FFFFFF"/>
+  <text x="1226" y="598" font-size="12.5" font-weight="700" fill="#6B21A8" text-anchor="middle">ontology ↔ product mappings</text>
+
+  <!-- catalog of catalogs – centered in the governance column, painted on top -->
+  <rect x="1414" y="513" width="206" height="88" rx="12" fill="#FFFFFF" stroke="#CFD2F8" stroke-width="1.5"/>
+  <circle cx="1442" cy="557" r="15" fill="#EDEFFE"/>
+  <g transform="translate(1442,557) scale(0.95)">
+    <path d="M -10 -7 h 20 l 2.3 5.5 h -24.5 z" fill="#4F46E5"/>
+    <rect x="-8" y="-0.8" width="16" height="9.5" rx="1.4" fill="none" stroke="#4F46E5" stroke-width="1.7"/>
+    <rect x="1.8" y="2.3" width="4.5" height="6.4" fill="#4F46E5"/>
+  </g>
+  <text x="1466" y="537" font-size="13.5" font-weight="700" fill="#1B2140">Catalog of catalogs</text>
+  <text x="1466" y="555" font-size="11" fill="#565C7E">the data &amp; AI marketplace</text>
+  <text x="1466" y="571" font-size="10.5" fill="#565C7E">products · tools · agents</text>
+  <text x="1466" y="589" font-size="10.5" font-weight="600" fill="#4F46E5">everything registers here</text>
+
+  <!-- ═══════════ data &amp; AI products (logical layer) ═══════════ -->
+  <rect x="226" y="652" width="1132" height="194" rx="16" fill="#FFFFFF" stroke="#E1E4F0"/>
+  <text x="254" y="680" font-size="12.5" font-weight="700" letter-spacing="1.5" fill="#4F46E5">DATA &amp; AI PRODUCTS – THE LOGICAL LAYER · DEFINED BY CONTRACT, NOT LOCATION</text>
+  <text x="1344" y="680" font-size="11" font-weight="600" fill="#B45309" text-anchor="end">lifecycle: agent-proposed → auto-verified → human-certified</text>
+  <text x="254" y="700" font-size="11.5" fill="#8A90AC">each product: explicit contract + SLOs · domain-owned · ontology-mapped</text>
+
+  <g>
+    <rect x="250" y="712" width="206" height="64" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+    <text x="266" y="738" font-size="14" font-weight="700" fill="#1B2140">Analytical products</text>
+    <rect x="266" y="746" width="84" height="19" rx="9.5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="0.8"/>
+    <text x="308" y="759.5" font-size="9.5" font-weight="700" fill="#92400E" text-anchor="middle">CERTIFIED ✓</text>
+
+    <rect x="473" y="712" width="206" height="64" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+    <text x="489" y="738" font-size="14" font-weight="700" fill="#1B2140">Operational products</text>
+    <rect x="489" y="746" width="84" height="19" rx="9.5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="0.8"/>
+    <text x="531" y="759.5" font-size="9.5" font-weight="700" fill="#92400E" text-anchor="middle">CERTIFIED ✓</text>
+
+    <rect x="696" y="712" width="206" height="64" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+    <text x="712" y="738" font-size="14" font-weight="700" fill="#1B2140">Streaming products</text>
+    <rect x="712" y="746" width="84" height="19" rx="9.5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="0.8"/>
+    <text x="754" y="759.5" font-size="9.5" font-weight="700" fill="#92400E" text-anchor="middle">CERTIFIED ✓</text>
+
+    <rect x="919" y="712" width="206" height="64" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+    <text x="935" y="738" font-size="14" font-weight="700" fill="#1B2140">Knowledge products</text>
+    <rect x="935" y="746" width="84" height="19" rx="9.5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="0.8"/>
+    <text x="977" y="759.5" font-size="9.5" font-weight="700" fill="#92400E" text-anchor="middle">CERTIFIED ✓</text>
+
+    <rect x="1142" y="712" width="206" height="64" rx="12" fill="#F7F8FD" stroke="#E1E4F0"/>
+    <text x="1158" y="738" font-size="14" font-weight="700" fill="#1B2140">ML models</text>
+    <rect x="1158" y="746" width="84" height="19" rx="9.5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="0.8"/>
+    <text x="1200" y="759.5" font-size="9.5" font-weight="700" fill="#92400E" text-anchor="middle">CERTIFIED ✓</text>
+  </g>
+
+  <g stroke="#C4B5FD" stroke-width="1.3" stroke-dasharray="3 2">
+    <line x1="353" y1="776" x2="353" y2="788"/>
+    <line x1="576" y1="776" x2="576" y2="788"/>
+    <line x1="799" y1="776" x2="799" y2="788"/>
+    <line x1="1022" y1="776" x2="1022" y2="788"/>
+    <line x1="1245" y1="776" x2="1245" y2="788"/>
+  </g>
+
+  <rect x="250" y="788" width="1098" height="44" rx="10" fill="#EDEFFE" stroke="#CFD2F8"/>
+  <circle cx="278" cy="810" r="13" fill="#FFFFFF"/>
+  <g transform="translate(278,810)">
+    <line x1="-2.8" y1="-7.5" x2="-2.8" y2="-3.2" stroke="#4F46E5" stroke-width="1.7" stroke-linecap="round"/>
+    <line x1="2.8" y1="-7.5" x2="2.8" y2="-3.2" stroke="#4F46E5" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M-5.4,-3.2 h10.8 v2.8 a5.4,5.4 0 0 1 -10.8 0 z" fill="#4F46E5"/>
+    <line x1="0" y1="5" x2="0" y2="8.2" stroke="#4F46E5" stroke-width="1.7" stroke-linecap="round"/>
+  </g>
+  <text x="300" y="815" font-size="14" font-weight="700" fill="#1B2140">Access ports</text>
+  <g font-size="12.5" fill="#454B66">
+    <rect x="450" y="796" width="58" height="28" rx="14" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="479" y="814.5" text-anchor="middle">SQL</text>
+    <rect x="520" y="796" width="56" height="28" rx="14" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="548" y="814.5" text-anchor="middle">API</text>
+    <rect x="588" y="796" width="76" height="28" rx="14" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="626" y="814.5" text-anchor="middle">events</text>
+    <rect x="676" y="796" width="62" height="28" rx="14" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="707" y="814.5" text-anchor="middle">MCP</text>
+    <rect x="750" y="796" width="78" height="28" rx="14" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="789" y="814.5" text-anchor="middle">search</text>
+    <rect x="840" y="796" width="92" height="28" rx="14" fill="#FFFFFF" stroke="#CFD2F8"/>
+    <text x="886" y="814.5" text-anchor="middle">inference</text>
+  </g>
+  <text x="1330" y="815" font-size="11.5" font-weight="600" fill="#4F46E5" text-anchor="end">any product · any port – protocol-agnostic serving</text>
+
+  <!-- ═══════════ physical data layer ═══════════ -->
+  <rect x="226" y="878" width="1132" height="116" rx="16" fill="#EEF0F7" stroke="#D8DCEA"/>
+  <text x="254" y="906" font-size="12.5" font-weight="700" letter-spacing="1.5" fill="#5A6089">PHYSICAL DATA LAYER – WHERE THE REAL DATA LIVES</text>
+  <text x="1344" y="906" font-size="11.5" font-weight="600" fill="#6A7090" text-anchor="end">the systems of record</text>
+  <g>
+    <rect x="250" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="323" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">Lakehouse</text>
+    <text x="323" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">the center of gravity</text>
+
+    <rect x="408" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="481" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">Operational &amp; SaaS</text>
+    <text x="481" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">CRM · ERP · billing</text>
+
+    <rect x="566" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="639" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">Streams &amp; queues</text>
+    <text x="639" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">events · telemetry</text>
+
+    <rect x="724" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="797" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">Document stores</text>
+    <text x="797" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">contracts · manuals</text>
+
+    <rect x="882" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="955" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">Vector stores</text>
+    <text x="955" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">embeddings · indexes</text>
+
+    <rect x="1040" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="1113" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">Graph stores</text>
+    <text x="1113" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">knowledge graph · ontology</text>
+
+    <rect x="1198" y="920" width="146" height="60" rx="10" fill="#FFFFFF" stroke="#D8DCEA"/>
+    <text x="1271" y="946" font-size="12.5" font-weight="700" fill="#1B2140" text-anchor="middle">External &amp; shared</text>
+    <text x="1271" y="964" font-size="10" fill="#8A90AC" text-anchor="middle">partners · market data</text>
+  </g>
+
+  <g stroke="#A9B6C6" stroke-width="1.3" stroke-dasharray="4 3">
+    <line x1="353" y1="846" x2="353" y2="872"/>
+    <line x1="576" y1="846" x2="576" y2="872"/>
+    <line x1="799" y1="846" x2="799" y2="872"/>
+    <line x1="1022" y1="846" x2="1022" y2="872"/>
+    <line x1="1245" y1="846" x2="1245" y2="872"/>
+  </g>
+
+  <!-- ═══════════ flows &amp; connectors (painted last, always on top) ═══════════ -->
+
+  <line x1="505" y1="146" x2="505" y2="162" stroke="#9AA1C2" stroke-width="1.5"/>
+  <polygon points="500,162 510,162 505,170" fill="#9AA1C2"/>
+  <polygon points="565,154 575,154 570,146" fill="#9AA1C2"/>
+  <line x1="570" y1="154" x2="570" y2="170" stroke="#9AA1C2" stroke-width="1.5"/>
+  <text x="495" y="163" font-size="11" fill="#6A7090" text-anchor="end">questions &amp; intent</text>
+  <text x="584" y="163" font-size="11" fill="#6A7090">grounded answers</text>
+
+  <line x1="1015" y1="146" x2="1015" y2="162" stroke="#9AA1C2" stroke-width="1.5"/>
+  <polygon points="1010,162 1020,162 1015,170" fill="#9AA1C2"/>
+  <polygon points="1075,154 1085,154 1080,146" fill="#9AA1C2"/>
+  <line x1="1080" y1="154" x2="1080" y2="170" stroke="#9AA1C2" stroke-width="1.5"/>
+  <text x="1005" y="163" font-size="11" fill="#6A7090" text-anchor="end">intent &amp; direction</text>
+  <text x="1094" y="163" font-size="11" fill="#6A7090">proposals to review</text>
+
+  <path d="M 1400 104 L 1438 104 L 1438 284" fill="none" stroke="#D97706" stroke-width="1.7"/>
+  <polygon points="1433,284 1443,284 1438,292" fill="#D97706"/>
+  <text transform="rotate(-90 1426 196)" x="1426" y="196" font-size="11" font-weight="700" fill="#B45309" text-anchor="middle">certifies at the gate</text>
+
+  <polygon points="198,295.5 198,304.5 190,300" fill="#4F46E5"/>
+  <line x1="198" y1="300" x2="218" y2="300" stroke="#4F46E5" stroke-width="1.6"/>
+  <polygon points="218,295.5 218,304.5 226,300" fill="#4F46E5"/>
+  <text transform="rotate(-90 208 430)" x="208" y="430" font-size="11" font-weight="600" fill="#4F46E5" text-anchor="middle">implemented &amp; managed by agents</text>
+
+  <line x1="194" y1="740" x2="218" y2="740" stroke="#4F46E5" stroke-width="1.6"/>
+  <polygon points="218,735.5 218,744.5 226,740" fill="#4F46E5"/>
+  <text transform="rotate(-90 208 850)" x="208" y="850" font-size="11" font-weight="600" fill="#4F46E5" text-anchor="middle">used to build data products</text>
+
+  <line x1="340" y1="462" x2="340" y2="487" stroke="#9AA1C2" stroke-width="1.5"/>
+  <polygon points="335,487 345,487 340,494" fill="#9AA1C2"/>
+  <text x="358" y="482" font-size="12" fill="#6A7090">every answer grounded in approved meaning</text>
+
+  <polygon points="1223,469 1233,469 1228,462" fill="#9AA1C2"/>
+  <line x1="1228" y1="469" x2="1228" y2="487" stroke="#9AA1C2" stroke-width="1.5"/>
+  <polygon points="1223,487 1233,487 1228,494" fill="#9AA1C2"/>
+  <text x="1210" y="482" font-size="12" fill="#6A7090" text-anchor="end">context updates proposed by agents – certified at the gate</text>
+
+  <!-- AI layer → catalog: discovery -->
+  <circle cx="1350" cy="462" r="3" fill="#6A7090"/>
+  <path d="M 1350 462 L 1350 478 L 1500 478 L 1500 505" fill="none" stroke="#6A7090" stroke-width="1.5"/>
+  <polygon points="1495,505 1505,505 1500,513" fill="#6A7090"/>
+  <text x="1428" y="473" font-size="11" fill="#565C7E" text-anchor="middle">discovered by the fleet</text>
+
+  <line x1="300" y1="620" x2="300" y2="644" stroke="#9AA1C2" stroke-width="1.5"/>
+  <polygon points="295,644 305,644 300,652" fill="#9AA1C2"/>
+  <text x="318" y="641" font-size="12" fill="#6A7090">resolved to certified products</text>
+
+  <g stroke="#C4B5FD" stroke-width="1.5" stroke-dasharray="2 3">
+    <line x1="500" y1="620" x2="500" y2="652"/>
+    <line x1="800" y1="620" x2="800" y2="652"/>
+    <line x1="1100" y1="620" x2="1100" y2="652"/>
+  </g>
+
+  <!-- data products → catalog: publication -->
+  <circle cx="1360" cy="694" r="3" fill="#6A7090"/>
+  <path d="M 1360 694 L 1470 694 L 1470 608" fill="none" stroke="#6A7090" stroke-width="1.5"/>
+  <polygon points="1465,608 1475,608 1470,601" fill="#6A7090"/>
+  <text x="1480" y="655" font-size="11" fill="#565C7E">published to the catalog</text>
+</svg>

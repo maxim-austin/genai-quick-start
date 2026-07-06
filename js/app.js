@@ -518,6 +518,90 @@
     else renderSection(route.id);
   }
 
+  // ---------- Image lightbox (click a content image to view full screen) ----------
+
+  let lightboxEl = null;
+  let lightboxReturnFocus = null;
+
+  function ensureLightbox() {
+    if (lightboxEl) return lightboxEl;
+
+    lightboxEl = document.createElement('div');
+    lightboxEl.className = 'lightbox';
+    lightboxEl.hidden = true;
+    lightboxEl.setAttribute('role', 'dialog');
+    lightboxEl.setAttribute('aria-modal', 'true');
+    lightboxEl.setAttribute('aria-label', 'Image viewer');
+    lightboxEl.innerHTML = `
+      <button class="lightbox__close" type="button" aria-label="Close image viewer">&times;</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" alt="" />
+        <figcaption class="lightbox__caption"></figcaption>
+      </figure>
+    `;
+    document.body.appendChild(lightboxEl);
+
+    const imgEl = lightboxEl.querySelector('.lightbox__img');
+
+    lightboxEl.addEventListener('click', (e) => {
+      if (e.target === imgEl) {
+        lightboxEl.classList.toggle('is-zoomed'); // fit ↔ actual size
+      } else if (!e.target.closest('.lightbox__caption')) {
+        closeLightbox(); // backdrop / figure whitespace
+      }
+    });
+    lightboxEl.querySelector('.lightbox__close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    return lightboxEl;
+  }
+
+  function openLightbox(sourceImg) {
+    const lb = ensureLightbox();
+    const img = lb.querySelector('.lightbox__img');
+    const caption = lb.querySelector('.lightbox__caption');
+    const text = sourceImg.getAttribute('alt') || '';
+
+    img.src = sourceImg.currentSrc || sourceImg.src;
+    img.alt = text;
+    caption.textContent = text;
+    caption.hidden = !text;
+
+    lb.classList.remove('is-zoomed');
+    lb.hidden = false;
+    document.body.classList.add('has-lightbox');
+    lightboxReturnFocus = document.activeElement;
+    lb.querySelector('.lightbox__close').focus();
+  }
+
+  function closeLightbox() {
+    if (!lightboxEl || lightboxEl.hidden) return;
+    lightboxEl.hidden = true;
+    lightboxEl.classList.remove('is-zoomed');
+    lightboxEl.querySelector('.lightbox__img').src = '';
+    document.body.classList.remove('has-lightbox');
+    if (lightboxReturnFocus && typeof lightboxReturnFocus.focus === 'function') {
+      lightboxReturnFocus.focus();
+    }
+    lightboxReturnFocus = null;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightboxEl && !lightboxEl.hidden) closeLightbox();
+  });
+
+  /** One delegated listener covers all rendered content images, now and later. */
+  function bindImageLightbox() {
+    viewEl.addEventListener('click', (e) => {
+      const img = e.target.closest('.article__body img, .home-block__body img');
+      if (!img) return;
+      e.preventDefault();
+      openLightbox(img);
+    });
+  }
+
   // ---------- Boot ----------
 
   async function init() {
@@ -542,6 +626,7 @@
     standalonePages = Object.fromEntries((manifest.pages || []).map((p) => [p.id, p]));
     articlesById = Object.fromEntries((manifest.articles || []).map((a) => [a.id, a]));
 
+    bindImageLightbox();
     handleRoute();
     window.addEventListener('hashchange', handleRoute);
   }
